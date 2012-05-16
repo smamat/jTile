@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>letter</key>
+		<string>alif</string>
+		<key>type</key>
+		<string>1</string>
+	</dict>
+	<dict>
+		<key>letter</key>
+		<string>ba</string>
+		<key>type</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>letter</key>
+		<string>ya</string>
+		<key>type</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>letter</key>
+		<string>mim</string>
+		<key>type</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>letter</key>
+		<string>wau</string>
+		<key>type</key>
+		<string>1</string>
+	</dict>
+	<dict>
+		<key>letter</key>
+		<string>ra</string>
+		<key>type</key>
+		<string>1</string>
+	</dict>
+	<dict>
+		<key>letter</key>
+		<string>nga</string>
+		<key>type</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>letter</key>
+		<string>ta</string>
+		<key>type</key>
+		<string>2</string>
+	</dict>
+</array>
+</plist>
