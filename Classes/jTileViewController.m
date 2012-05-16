@@ -11,6 +11,8 @@
 
 @implementation jTileViewController
 
+@synthesize letterType;
+
 /* calculate width of row by pixels */
 
 - (float) widthOfRow :(NSMutableArray*)tileset {
@@ -64,12 +66,20 @@
 	
 }
 
-- (NSMutableArray*) recPanelwithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel {
+- (NSMutableArray*) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel {
+
 	
 	NSInteger pos;
 	
+	NSInteger i = 0, c = [panel count];
+	
+	//for (; i<c; ++i) 
+		NSLog(@"panel: %@", [panel objectAtIndex:0]);
+	
+	
 	// - at last letter
 	if ([panel count] == 1) {
+		NSLog(@"at last letter");
 		if (prevType == TYPE_A)
 			pos = 0;
 		else 
@@ -81,18 +91,35 @@
 		
 	}
 	
+	NSLog(@"doing middle letter");
+	
 	// - front/middle letter
 	if (prevType == TYPE_A)
 		pos = 1;
 	else
 		pos = 2;
 	
+		  
+	NSLog(@"new pos: %d", pos);
+	
 	// change current letter
+	NSLog(@"offending: %@", [[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]);
+	NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
+	NSLog(@"after: %@",tmpStr);
 	[panel replaceObjectAtIndex:0
 					 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
 	
+	NSLog(@"%@", [panel objectAtIndex:0]);
+
 	// recurse the rest
-	[self recPanelWithPrevType:typeletter forPanel:[panel subarrayWithRange:NSRange(1,[panel count])]];
+	//NSDictionary* letter = [abjadList];
+	//NSInteger typeletter = [letter objectForKey:[panel objectAtIndex:0]];
+	NSInteger typeletter = (NSInteger)[self.letterType objectForKey:[panel objectAtIndex:0]];
+	
+	NSInteger l = [panel count]-1;
+	NSLog(@"range: 1 - %d", l);
+	
+	[self recPanelWithPrevType:typeletter forPanel:(NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,l)]];
 		
 	return panel;
 	
@@ -103,14 +130,17 @@
 
 - (void) detPos : (NSMutableArray*)panel {
 	
-	NSLog(@"the letters are:");
-	int i = 0, c = [panel count];
+	//NSLog(@"the letters are:");
+	//int i = 0, c = [panel count];
 	
-	for (; i<c; ++i) {
-		NSLog(@"%@", [panel objectAtIndex:i]);
-	}
+	//for (; i<c; ++i) 
+	//	NSLog(@"%@", [panel objectAtIndex:i]);
+	
+	
 	
 	NSMutableArray* rpanel = [self recPanelWithPrevType:TYPE_A forPanel:panel]; 
+	
+	NSLog( @"size of rpanel = %d", [rpanel count]);
 }
 
 - (void) arrangeTile {
@@ -169,7 +199,8 @@
 	// try recursion
 	//[self detPos:panel];
 
-	
+	[self detPos:panel];
+	 
 	[panel release];
 	[tileArray release];
 }
@@ -199,7 +230,16 @@
 
 	NSLog( @"device: %f x %f", self.view.frame.size.width, self.view.frame.size.height );
 
-	NSLog( @"Test" );
+
+	// load dictionary
+	NSString* path = [[NSBundle mainBundle] pathForResource:@"LetterType" ofType:@"plist"];
+	//NSMutableArray* tmpArray = [[NSMutableArray alloc] initWithContentsOfFile:path];
+	//self.letterType = tmpArray;
+	//[tmpArray release];
+	NSMutableDictionary* tmpDict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
+	self.letterType = tmpDict;
+	[tmpDict release];
+	
 	//UIImageView* iv = [[UIImageView alloc] initWithFrame:CGRectMake(160, 240, 50, 50)];
 	//[iv setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5]];
 	//UIImage* im = [UIImage imageNamed:@"ya2.png"];
@@ -246,6 +286,9 @@
 
 
 - (void)dealloc {
+	
+	[letterType dealloc];
+	
     [super dealloc];
 }
 

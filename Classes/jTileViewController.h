@@ -10,7 +10,12 @@
 
 @interface jTileViewController : UIViewController {
 
+	//NSMutableArray* letterType;
+	NSMutableDictionary* letterType;
 }
+
+//@property (nonatomic,retain) NSMutableArray* letterType;
+@property (nonatomic,retain) NSMutableDictionary* letterType;
 
 - (void) arrangeTile;
 - (float) widthOfRow : (NSMutableArray*)tileset;
