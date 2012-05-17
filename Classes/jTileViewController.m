@@ -66,15 +66,13 @@
 	
 }
 
-- (NSMutableArray*) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel {
+- (NSMutableArray*) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel1 {
 
 	
 	NSInteger pos;
 	
-	NSInteger i = 0, c = [panel count];
-	
-	//for (; i<c; ++i) 
-		NSLog(@"panel: %@", [panel objectAtIndex:0]);
+	//NSInteger i = 0, c = [panel count];
+	NSMutableArray* panel = [panel1 mutableCopy];
 	
 	
 	// - at last letter
@@ -87,6 +85,7 @@
 		
 		[panel replaceObjectAtIndex:0
 						 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
+		NSLog(@"letter: %@", [panel objectAtIndex:0]);
 		return panel;
 		
 	}
@@ -100,24 +99,17 @@
 		pos = 2;
 	
 		  
-	NSLog(@"new pos: %d", pos);
-	
+	NSInteger typeletter = [[self.letterType objectForKey:[panel objectAtIndex:0]] integerValue];
+
 	// change current letter
-	NSLog(@"offending: %@", [[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]);
 	NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
-	NSLog(@"after: %@",tmpStr);
 	[panel replaceObjectAtIndex:0
 					 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
+	NSLog(@"letter: %@", [panel objectAtIndex:0]);
 	
-	NSLog(@"%@", [panel objectAtIndex:0]);
-
 	// recurse the rest
-	//NSDictionary* letter = [abjadList];
-	//NSInteger typeletter = [letter objectForKey:[panel objectAtIndex:0]];
-	NSInteger typeletter = (NSInteger)[self.letterType objectForKey:[panel objectAtIndex:0]];
-	
+	NSLog(@"typeletter: %d", typeletter);
 	NSInteger l = [panel count]-1;
-	NSLog(@"range: 1 - %d", l);
 	
 	[self recPanelWithPrevType:typeletter forPanel:(NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,l)]];
 		
@@ -165,25 +157,9 @@
 	
 	NSMutableArray* tileArray = [[NSMutableArray alloc] initWithObjects:@"alif1", @"ya2", @"mim4", nil];
 	
-	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"alif", @"ya", @"mim", nil];
-	
-	/* algo
-	 * type a: alif, wau, ra, b: ba, jim, fa, c: hamzah
-	 * pos: 0, 1, 2, 3
-	 1. check prevPos
-	 2. case prevPos
-		(prevPos == 0) if end pos=0 else pos=1
-		(prevPos == 1) if end pos=3 else pos=2
-	 3. case (type)
-		(type == a || c) prevPos = 0
-		(type == b ) prevPos = 1
-	 4. Goto 1 until exhausted letter in panel
-	 */ 
-	
-	
-	
-	
-	
+	//NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"alif", @"ya", @"mim", @"sin", nil];
+	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"ba", @"wau", @"ra", @"wau", @"nga", nil];
+
 	float rowWidth = [self widthOfRow:tileArray];
 	
 	NSLog( @"size of tiles: %f", rowWidth );
@@ -240,22 +216,8 @@
 	self.letterType = tmpDict;
 	[tmpDict release];
 	
-	//UIImageView* iv = [[UIImageView alloc] initWithFrame:CGRectMake(160, 240, 50, 50)];
-	//[iv setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5]];
-	//UIImage* im = [UIImage imageNamed:@"ya2.png"];
-	//UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ya2.png"]];
-	//[iv setImage:im];
-	//iv.contentMode = UIViewContentModeScaleToFill;
-	//[self.view addSubview: iv];
-	//iv.center = self.view.center;
-	//NSLog( @"tile: %f x %f", iv.frame.size.width, iv.frame.size.height );
-	//[iv release];
+	//NSLog(@"type: %d", [[self.letterType objectForKey:@"ra"] integerValue]);
 	
-	//UIImageView* iv2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mim4.png"]];
-	//[self.view addSubview: iv2];
-	//iv2.center = self.view.center;
-	//[iv2 release];
-
 	[self arrangeTile];
 	
 						
