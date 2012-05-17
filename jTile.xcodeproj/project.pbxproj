@@ -16,11 +16,6 @@
 		2899E5220DE3E06400AC0155 /* jTileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* jTileViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* jTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* jTileViewController.m */; };
-		4311753115615BE0008CD0C2 /* LetterType2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4311753015615BE0008CD0C2 /* LetterType2.plist */; };
-		436371BB155EBD5A006D6851 /* alif1.png in Resources */ = {isa = PBXBuildFile; fileRef = 436371BA155EBD5A006D6851 /* alif1.png */; };
-		436371C5155EBEDF006D6851 /* ya2.png in Resources */ = {isa = PBXBuildFile; fileRef = 436371C4155EBEDF006D6851 /* ya2.png */; };
-		436371D1155EBF75006D6851 /* mim4.png in Resources */ = {isa = PBXBuildFile; fileRef = 436371D0155EBF75006D6851 /* mim4.png */; };
-		43CBCF7A155D64C5007DC602 /* ba1.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CBCF79155D64C5007DC602 /* ba1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,12 +32,7 @@
 		28D7ACF70DDB3853001CB0EB /* jTileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = jTileViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* jTile_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jTile_Prefix.pch; sourceTree = "<group>"; };
-		4311753015615BE0008CD0C2 /* LetterType2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LetterType2.plist; sourceTree = "<group>"; };
-		436371BA155EBD5A006D6851 /* alif1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alif1.png; sourceTree = "<group>"; };
-		436371C4155EBEDF006D6851 /* ya2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ya2.png; sourceTree = "<group>"; };
-		436371D0155EBF75006D6851 /* mim4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mim4.png; sourceTree = "<group>"; };
 		43B0A5E015631D8B008618CF /* AbjadConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbjadConstants.h; sourceTree = "<group>"; };
-		43CBCF79155D64C5007DC602 /* ba1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ba1.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* jTile-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "jTile-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,7 +99,6 @@
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* jTile-Info.plist */,
 				13ED44C8156392A8009C51CC /* LetterType.plist */,
-				4311753015615BE0008CD0C2 /* LetterType2.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -127,10 +116,6 @@
 		43CBCEF1155CC2CF007DC602 /* Letters */ = {
 			isa = PBXGroup;
 			children = (
-				436371D0155EBF75006D6851 /* mim4.png */,
-				436371BA155EBD5A006D6851 /* alif1.png */,
-				43CBCF79155D64C5007DC602 /* ba1.png */,
-				436371C4155EBEDF006D6851 /* ya2.png */,
 			);
 			name = Letters;
 			sourceTree = "<group>";
@@ -186,11 +171,6 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* jTileViewController.xib in Resources */,
-				43CBCF7A155D64C5007DC602 /* ba1.png in Resources */,
-				436371BB155EBD5A006D6851 /* alif1.png in Resources */,
-				436371C5155EBEDF006D6851 /* ya2.png in Resources */,
-				436371D1155EBF75006D6851 /* mim4.png in Resources */,
-				4311753115615BE0008CD0C2 /* LetterType2.plist in Resources */,
 				13ED44C9156392A8009C51CC /* LetterType.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

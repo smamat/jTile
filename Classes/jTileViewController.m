@@ -66,20 +66,15 @@
 	
 }
 
-- (NSMutableArray*) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel {
+- (NSMutableArray*) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel1 {
 
 	
 	NSInteger pos;
 	
-	NSInteger i = 0, c = [panel count];
-	
-	//for (; i<c; ++i) 
-		NSLog(@"panel: %@", [panel objectAtIndex:0]);
-	
+	NSMutableArray* panel = [panel1 mutableCopy];
 	
 	// - at last letter
 	if ([panel count] == 1) {
-		NSLog(@"at last letter");
 		if (prevType == TYPE_A)
 			pos = 0;
 		else 
@@ -87,39 +82,50 @@
 		
 		[panel replaceObjectAtIndex:0
 						 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
+		NSLog(@"last letter: %@",(NSString*)[panel objectAtIndex:0]);
 		return panel;
 		
 	}
 	
-	NSLog(@"doing middle letter");
-	
+	NSLog(@"prevType: %d", prevType);
 	// - front/middle letter
-	if (prevType == TYPE_A)
+	if (prevType == TYPE_A) {
 		pos = 1;
-	else
+		NSLog(@"pos: %d", pos); }
+	else {
 		pos = 2;
-	
-		  
-	NSLog(@"new pos: %d", pos);
+		NSLog(@"pos: %d", pos); }
 	
 	// change current letter
-	NSLog(@"offending: %@", [[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]);
-	NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
-	NSLog(@"after: %@",tmpStr);
+	//NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
+	//NSLog(@"letter+pos: %@",tmpStr);
+	
 	[panel replaceObjectAtIndex:0
 					 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
-	
-	NSLog(@"%@", [panel objectAtIndex:0]);
 
+		
+	
+	//[panel replaceObjectAtIndex:0
+	//				 withObject:tmpStr];
+	
+	NSLog(@"with %@", [panel objectAtIndex:0]);
+	
 	// recurse the rest
-	//NSDictionary* letter = [abjadList];
-	//NSInteger typeletter = [letter objectForKey:[panel objectAtIndex:0]];
 	NSInteger typeletter = (NSInteger)[self.letterType objectForKey:[panel objectAtIndex:0]];
+	//NSLog( @"typeletter is %d", [self.letterType objectForKey:(NSString*)[panel objectAtIndex:0]]);
+	NSLog( @"typeletter is %d", (NSInteger)[self.letterType objectForKey:@"ta"]);
+
 	
 	NSInteger l = [panel count]-1;
-	NSLog(@"range: 1 - %d", l);
 	
-	[self recPanelWithPrevType:typeletter forPanel:(NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,l)]];
+//	NSLog(@"count sub: %d", [[(NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,3)]] count]);
+	NSMutableArray* sp = (NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,l)];
+
+			
+
+														
+	//[self recPanelWithPrevType:typeletter forPanel:(NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,l)]];
+	[self recPanelWithPrevType:typeletter forPanel:(NSMutableArray*)sp];
 		
 	return panel;
 	
@@ -141,6 +147,9 @@
 	NSMutableArray* rpanel = [self recPanelWithPrevType:TYPE_A forPanel:panel]; 
 	
 	NSLog( @"size of rpanel = %d", [rpanel count]);
+	
+	for (int i=0; i<[rpanel count]; ++i)
+		NSLog(@"K: %@", [rpanel objectAtIndex:i]);
 }
 
 - (void) arrangeTile {
@@ -165,7 +174,8 @@
 	
 	NSMutableArray* tileArray = [[NSMutableArray alloc] initWithObjects:@"alif1", @"ya2", @"mim4", nil];
 	
-	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"alif", @"ya", @"mim", nil];
+//	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"alif", @"ya", @"mim", nil];
+	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"ta", @"nun", @"wau", @"qaf", @"nun", @"mim", nil];
 	
 	/* algo
 	 * type a: alif, wau, ra, b: ba, jim, fa, c: hamzah
@@ -184,17 +194,17 @@
 	
 	
 	
-	float rowWidth = [self widthOfRow:tileArray];
+	//float rowWidth = [self widthOfRow:tileArray];
 	
-	NSLog( @"size of tiles: %f", rowWidth );
+	//NSLog( @"size of tiles: %f", rowWidth );
 	
 
 	
-	float a = ((self.view.frame.size.width) - rowWidth)/2;
+	//float a = ((self.view.frame.size.width) - rowWidth)/2;
 	
-	NSLog( @"a is %f", a);
+	//NSLog( @"a is %f", a);
 	
-	[self placeTile:tileArray startAtCoord:a];
+	//[self placeTile:tileArray startAtCoord:a];
 	
 	// try recursion
 	//[self detPos:panel];
