@@ -89,33 +89,22 @@
 	
 	NSLog(@"prevType: %d", prevType);
 	// - front/middle letter
-	if (prevType == TYPE_A) {
+	if (prevType == TYPE_A)
 		pos = 1;
-		NSLog(@"pos: %d", pos); }
-	else {
+	else
 		pos = 2;
-		NSLog(@"pos: %d", pos); }
 	
+		  
+	NSInteger typeletter = [[self.letterType objectForKey:[panel objectAtIndex:0]] integerValue];
+
 	// change current letter
-	//NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
-	//NSLog(@"letter+pos: %@",tmpStr);
-	
+	NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
 	[panel replaceObjectAtIndex:0
 					 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
-
-		
-	
-	//[panel replaceObjectAtIndex:0
-	//				 withObject:tmpStr];
-	
-	NSLog(@"with %@", [panel objectAtIndex:0]);
+	NSLog(@"letter: %@", [panel objectAtIndex:0]);
 	
 	// recurse the rest
-	NSInteger typeletter = (NSInteger)[self.letterType objectForKey:[panel objectAtIndex:0]];
-	//NSLog( @"typeletter is %d", [self.letterType objectForKey:(NSString*)[panel objectAtIndex:0]]);
-	NSLog( @"typeletter is %d", (NSInteger)[self.letterType objectForKey:@"ta"]);
-
-	
+	NSLog(@"typeletter: %d", typeletter);
 	NSInteger l = [panel count]-1;
 	
 //	NSLog(@"count sub: %d", [[(NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,3)]] count]);
@@ -174,27 +163,10 @@
 	
 	NSMutableArray* tileArray = [[NSMutableArray alloc] initWithObjects:@"alif1", @"ya2", @"mim4", nil];
 	
-//	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"alif", @"ya", @"mim", nil];
-	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"ta", @"nun", @"wau", @"qaf", @"nun", @"mim", nil];
-	
-	/* algo
-	 * type a: alif, wau, ra, b: ba, jim, fa, c: hamzah
-	 * pos: 0, 1, 2, 3
-	 1. check prevPos
-	 2. case prevPos
-		(prevPos == 0) if end pos=0 else pos=1
-		(prevPos == 1) if end pos=3 else pos=2
-	 3. case (type)
-		(type == a || c) prevPos = 0
-		(type == b ) prevPos = 1
-	 4. Goto 1 until exhausted letter in panel
-	 */ 
-	
-	
-	
-	
-	
-	//float rowWidth = [self widthOfRow:tileArray];
+	//NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"alif", @"ya", @"mim", @"sin", nil];
+	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"ba", @"wau", @"ra", @"wau", @"nga", nil];
+
+	float rowWidth = [self widthOfRow:tileArray];
 	
 	//NSLog( @"size of tiles: %f", rowWidth );
 	

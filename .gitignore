@@ -5,7 +5,10 @@
 build/
 
 *.xcodeproj/
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 !*.xcodeproj/project.pbxproj
 
 *.mode1v3
