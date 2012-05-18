@@ -12,10 +12,12 @@
 
 	//NSMutableArray* letterType;
 	NSMutableDictionary* letterType;
+	NSMutableArray* objSpell;
 }
 
 //@property (nonatomic,retain) NSMutableArray* letterType;
 @property (nonatomic,retain) NSMutableDictionary* letterType;
+@property (nonatomic,retain) NSMutableArray* objSpell;
 
 - (void) arrangeTile;
 - (float) widthOfRow : (NSMutableArray*)tileset;

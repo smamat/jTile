@@ -12,6 +12,7 @@
 @implementation jTileViewController
 
 @synthesize letterType;
+@synthesize objSpell;
 
 /* calculate width of row by pixels */
 
@@ -98,7 +99,7 @@
 	NSInteger typeletter = [[self.letterType objectForKey:[panel objectAtIndex:0]] integerValue];
 
 	// change current letter
-	NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
+	//NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
 	[panel replaceObjectAtIndex:0
 					 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
 	NSLog(@"letter: %@", [panel objectAtIndex:0]);
@@ -138,7 +139,7 @@
 	NSLog( @"size of rpanel = %d", [rpanel count]);
 	
 	for (int i=0; i<[rpanel count]; ++i)
-		NSLog(@"K: %@", [rpanel objectAtIndex:i]);
+		NSLog(@"K: %@", [panel objectAtIndex:i]);
 }
 
 - (void) arrangeTile {
@@ -165,6 +166,8 @@
 	
 	//NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"alif", @"ya", @"mim", @"sin", nil];
 	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"ba", @"wau", @"ra", @"wau", @"nga", nil];
+	
+	
 
 	float rowWidth = [self widthOfRow:tileArray];
 	
@@ -215,12 +218,22 @@
 
 	// load dictionary
 	NSString* path = [[NSBundle mainBundle] pathForResource:@"LetterType" ofType:@"plist"];
-	//NSMutableArray* tmpArray = [[NSMutableArray alloc] initWithContentsOfFile:path];
-	//self.letterType = tmpArray;
-	//[tmpArray release];
 	NSMutableDictionary* tmpDict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
 	self.letterType = tmpDict;
 	[tmpDict release];
+	
+	// load spelling
+	path = [[NSBundle mainBundle] pathForResource:@"ObjectSpelling" ofType:@"plist"];
+	NSMutableArray* tmpArray = [[NSMutableArray alloc] initWithContentsOfFile:path];
+	self.objSpell = tmpArray;
+	[tmpArray release];
+	
+	NSInteger i, nObj = [self.objSpell count];
+	
+	for (i=0; i < nObj; ++i) {
+		NSDictionary* spellWord = [self.objSpell objectAtIndex:i];
+		NSLog(@"%@", [spellWord objectForKey:@"name"]);
+	}
 	
 	//UIImageView* iv = [[UIImageView alloc] initWithFrame:CGRectMake(160, 240, 50, 50)];
 	//[iv setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5]];
@@ -238,7 +251,7 @@
 	//iv2.center = self.view.center;
 	//[iv2 release];
 
-	[self arrangeTile];
+	//[self arrangeTile];
 	
 						
 

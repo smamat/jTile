@@ -16,6 +16,7 @@
 		2899E5220DE3E06400AC0155 /* jTileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* jTileViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* jTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* jTileViewController.m */; };
+		4344AD661565FD580042185D /* ObjectSpelling.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4344AD651565FD580042185D /* ObjectSpelling.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		28D7ACF70DDB3853001CB0EB /* jTileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = jTileViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* jTile_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jTile_Prefix.pch; sourceTree = "<group>"; };
+		4344AD651565FD580042185D /* ObjectSpelling.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ObjectSpelling.plist; sourceTree = "<group>"; };
 		43B0A5E015631D8B008618CF /* AbjadConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbjadConstants.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* jTile-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "jTile-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +101,7 @@
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* jTile-Info.plist */,
 				13ED44C8156392A8009C51CC /* LetterType.plist */,
+				4344AD651565FD580042185D /* ObjectSpelling.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* jTileViewController.xib in Resources */,
 				13ED44C9156392A8009C51CC /* LetterType.plist in Resources */,
+				4344AD661565FD580042185D /* ObjectSpelling.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
