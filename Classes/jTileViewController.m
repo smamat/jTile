@@ -67,15 +67,59 @@
 	
 }
 
-- (void) recurseForWord:word {
-	[self recurseForWord:word withPrevType:1];
+- (NSMutableArray*) recurseForWord:(NSMutableArray*)word {
+	return [self recurseForWord:word withPrevType:1];
+}
+
+- (NSMutableArray*) recurseForWord :(NSMutableArray*)word withPrevType:(NSInteger)prevType {
+	
+	NSInteger pos;
+	//NSMutableArray* word = [[uword mutableCopy] autorelease]; //- ensure array mutable each time
+	NSString* currLetter = [word objectAtIndex:0]; //- copy of word's first element
+	
+	//- BASE CASE: last letter
+	
+	if ([word count] == 1) {
+		
+		//- add pos to current letter
+		if (prevType == TYPE_A)	pos = 0;
+		else pos = 3;
+		NSString* modfLetter = [currLetter stringByAppendingFormat:@"%d", pos];
+		//NSLog(@"prevType: %d, last letter: %@", prevType, modfLetter);
+		
+		//- return new word with modified letter
+		NSMutableArray* newWord = [[NSMutableArray alloc] initWithObjects:modfLetter, nil];
+		return [newWord autorelease];
+	}
+	
+	//- RECURSIVE CASE: front/middle letter
+	
+	//- get current letter's type
+	NSInteger lType = [[self.typeList objectForKey:currLetter] integerValue];
+	
+	//- add pos to current letter
+	if (prevType == TYPE_A) pos = 1;
+	else pos = 2;
+	NSString* modfLetter = [currLetter stringByAppendingFormat:@"%d", pos];
+	//NSLog(@"prevType:%d, mid letter: %@", prevType, modfLetter);
+	
+	//- recurse remaining letters
+	NSMutableArray* subWord = (NSMutableArray*)[word subarrayWithRange:NSMakeRange(1,[word count]-1)];
+	NSMutableArray* modfSubWord = [self recurseForWord:subWord withPrevType:lType];
+	
+	//- return modified currLetter + recurseForWord(subWord,lType)
+	NSMutableArray* newWord = [[[NSMutableArray alloc] initWithObjects:modfLetter, nil] autorelease];
+	
+	return (NSMutableArray*)[newWord arrayByAddingObjectsFromArray:modfSubWord];
+	
 }
 
 
-- (void) recurseForWord:(NSMutableArray *)uword withPrevType:(NSInteger)prevType {
+/*
+- (NSMutableArray*) recurseForWord :(NSMutableArray*)uword withPrevType:(NSInteger)prevType {
 
 	NSInteger pos;
-	NSMutableArray* word = [uword mutableCopy]; //- ensure array mutable each time
+	NSMutableArray* word = [[uword mutableCopy] autorelease]; //- ensure array mutable each time
 	NSString* currLetter = [word objectAtIndex:0]; //- copy of word's first element
 	
 	//- base case (last letter)
@@ -85,22 +129,21 @@
 		else
 			pos = 3;
 		[word replaceObjectAtIndex:0
-						  withObject:[currLetter stringByAppendingFormat:@"%d", pos]];
+						withObject:[currLetter stringByAppendingFormat:@"%d", pos]];
 		NSLog(@"prevType:%d, last letter: %@", prevType, (NSString*)[word objectAtIndex:0]);
-		return;
+		return word;
 	}
 	
 	//- front/middle letter
-	if (prevType == TYPE_A)
+	if (prevType == TYPE_A) 
 		pos = 1;
 	else
 		pos = 2;
 		
 	//- get current letter's type
 	NSInteger lType = [[self.typeList objectForKey:currLetter] integerValue];
-	
-	
-	//- change current letter
+		
+	//- change letter
 	[word replaceObjectAtIndex:0
 					withObject:[currLetter stringByAppendingFormat:@"%d", pos]];
 		
@@ -108,14 +151,19 @@
 	
 	//- recurse remaining letters
 	NSMutableArray* subWord = (NSMutableArray*)[word subarrayWithRange:NSMakeRange(1,[word count]-1)];
+	NSMutableArray* sw = [self recurseForWord:subWord withPrevType:lType];
 	
-	[self recurseForWord:subWord withPrevType:lType];
+	//- return newCurrLetter + recurseForWord(subWord,lType)
+	NSMutableArray* nw = [[[NSMutableArray alloc] initWithObjects:[word objectAtIndex:0], nil] autorelease];
+	return (NSMutableArray*)[nw arrayByAddingObjectsFromArray:sw];
+	
+	
+	//return [self recurseForWord:subWord withPrevType:lType];
 	
 }
-	
+*/	
 
-//- (NSMutableArray*) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel1 {
-- (void) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel1 {
+/*- (void) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel1 {
 
 	
 	NSInteger pos;
@@ -166,9 +214,9 @@
 	//return panel;
 	
 		
-}
+}*/
 
-- (void) detPos : (NSMutableArray*)panel {
+/*- (void) detPos : (NSMutableArray*)panel {
 	
 	//NSLog(@"the letters are:");
 	//int i = 0, c = [panel count];
@@ -185,7 +233,7 @@
 	
 	//for (int i=0; i<[rpanel count]; ++i)
 		//NSLog(@"K: %@", [panel objectAtIndex:i]);
-}
+}*/
 
 - (void) arrangeTile {
 	
@@ -214,7 +262,7 @@
 	
 	
 
-	float rowWidth = [self widthOfRow:tileArray];
+	//float rowWidth = [self widthOfRow:tileArray];
 	
 	//NSLog( @"size of tiles: %f", rowWidth );
 	
@@ -233,6 +281,12 @@
 	 
 	[panel release];
 	[tileArray release];
+}
+
+- (void) arrangeTileForWord :(NSMutableArray *)word {
+	
+	
+	
 }
 
 /*
@@ -279,17 +333,12 @@
 		NSDictionary* spellWord = [self.objSpell objectAtIndex:i];
 		NSLog(@"%@", [spellWord objectForKey:@"name"]);
 		NSMutableArray* word = [spellWord objectForKey:@"spell"];
-		int i, c = [word count];
-		//for (i=0; i < c; ++i) {
-		//	NSLog(@"- %@", [word objectAtIndex:i]);
-		//}
+	
 		NSLog(@"- %@", word);
-		
-		[self recurseForWord:word];
-		//for (i=0; i < c; ++i) {
-		//	NSLog(@"- %@", [word objectAtIndex:i]);
-		//}
-		NSLog(@"~ %@",word);
+		//NSMutableArray* newWord = [self recurseForWord:word withPrevType:1];
+		NSMutableArray* newWord = [self recurseForWord:word];
+		NSLog(@"~ %@",newWord);
+
 		
 	}
 	
@@ -342,6 +391,7 @@
 - (void)dealloc {
 	
 	[typeList dealloc];
+	[objSpell dealloc];
 	
     [super dealloc];
 }

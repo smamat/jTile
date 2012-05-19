@@ -22,12 +22,13 @@
 - (void) arrangeTile;
 - (float) widthOfRow : (NSMutableArray*)tileset;
 - (void) placeTile : (NSMutableArray*)tileset startAtCoord:(float)xcoord;
-- (void) detPos : (NSMutableArray*)panel;
-//- (NSMutableArray*) recPanelWithPrevType :(NSInteger)prevType forPanel:(NSMutableArray*)panel;
-- (void) recPanelWithPrevType :(NSInteger)prevType forPanel:(NSMutableArray*)panel;
+//- (void) detPos : (NSMutableArray*)panel;
+//- (void) recPanelWithPrevType :(NSInteger)prevType forPanel:(NSMutableArray*)panel;
 
-- (void) recurseForWord :(NSMutableArray*)word withPrevType:(NSInteger)prevType;
-- (void) recurseForWord :(NSMutableArray*)word;
+- (NSMutableArray*) recurseForWord : (NSMutableArray*)word withPrevType : (NSInteger)prevType;
+- (NSMutableArray*) recurseForWord : (NSMutableArray*)word;
+
+- (void) arrangeTileForWord : (NSMutableArray*) word;
 
 @end
 
