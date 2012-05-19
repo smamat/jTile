@@ -11,7 +11,7 @@
 
 @implementation jTileViewController
 
-@synthesize letterType;
+@synthesize typeList;
 @synthesize objSpell;
 
 /* calculate width of row by pixels */
@@ -67,7 +67,55 @@
 	
 }
 
-- (NSMutableArray*) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel1 {
+- (void) recurseForWord:word {
+	[self recurseForWord:word withPrevType:1];
+}
+
+
+- (void) recurseForWord:(NSMutableArray *)uword withPrevType:(NSInteger)prevType {
+
+	NSInteger pos;
+	NSMutableArray* word = [uword mutableCopy]; //- ensure array mutable each time
+	NSString* currLetter = [word objectAtIndex:0]; //- copy of word's first element
+	
+	//- base case (last letter)
+	if ([word count] == 1) {
+		if (prevType == TYPE_A)
+			pos = 0;
+		else
+			pos = 3;
+		[word replaceObjectAtIndex:0
+						  withObject:[currLetter stringByAppendingFormat:@"%d", pos]];
+		NSLog(@"prevType:%d, last letter: %@", prevType, (NSString*)[word objectAtIndex:0]);
+		return;
+	}
+	
+	//- front/middle letter
+	if (prevType == TYPE_A)
+		pos = 1;
+	else
+		pos = 2;
+		
+	//- get current letter's type
+	NSInteger lType = [[self.typeList objectForKey:currLetter] integerValue];
+	
+	
+	//- change current letter
+	[word replaceObjectAtIndex:0
+					withObject:[currLetter stringByAppendingFormat:@"%d", pos]];
+		
+	NSLog(@"prevType:%d, mid letter: %@", prevType, [word objectAtIndex:0]);
+	
+	//- recurse remaining letters
+	NSMutableArray* subWord = (NSMutableArray*)[word subarrayWithRange:NSMakeRange(1,[word count]-1)];
+	
+	[self recurseForWord:subWord withPrevType:lType];
+	
+}
+	
+
+//- (NSMutableArray*) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel1 {
+- (void) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel1 {
 
 	
 	NSInteger pos;
@@ -84,8 +132,8 @@
 		[panel replaceObjectAtIndex:0
 						 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
 		NSLog(@"last letter: %@",(NSString*)[panel objectAtIndex:0]);
-		return panel;
-		
+		//return panel;
+		return;		
 	}
 	
 	NSLog(@"prevType: %d", prevType);
@@ -95,8 +143,8 @@
 	else
 		pos = 2;
 	
-		  
-	NSInteger typeletter = [[self.letterType objectForKey:[panel objectAtIndex:0]] integerValue];
+	//- get letter type
+	NSInteger lType = [[self.typeList objectForKey:[panel objectAtIndex:0]] integerValue];
 
 	// change current letter
 	//NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
@@ -105,23 +153,19 @@
 	NSLog(@"letter: %@", [panel objectAtIndex:0]);
 	
 	// recurse the rest
-	NSLog(@"typeletter: %d", typeletter);
+	NSLog(@"letter type: %d", lType);
 	NSInteger l = [panel count]-1;
 	
-//	NSLog(@"count sub: %d", [[(NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,3)]] count]);
 	NSMutableArray* sp = (NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,l)];
 
 			
 
 														
-	//[self recPanelWithPrevType:typeletter forPanel:(NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,l)]];
-	[self recPanelWithPrevType:typeletter forPanel:(NSMutableArray*)sp];
+	[self recPanelWithPrevType:lType forPanel:(NSMutableArray*)sp];
 		
-	return panel;
+	//return panel;
 	
-	
-	//- simple syntax: return [panel objectAtIndex:0] + pos + recPanel(pos,[panel objectStartAt:1]);
-	
+		
 }
 
 - (void) detPos : (NSMutableArray*)panel {
@@ -134,12 +178,13 @@
 	
 	
 	
-	NSMutableArray* rpanel = [self recPanelWithPrevType:TYPE_A forPanel:panel]; 
+	//NSMutableArray* rpanel = [self recPanelWithPrevType:TYPE_A forPanel:panel]; 
+	[self recPanelWithPrevType:TYPE_A forPanel:panel]; 
 	
-	NSLog( @"size of rpanel = %d", [rpanel count]);
+	//NSLog( @"size of rpanel = %d", [rpanel count]);
 	
-	for (int i=0; i<[rpanel count]; ++i)
-		NSLog(@"K: %@", [panel objectAtIndex:i]);
+	//for (int i=0; i<[rpanel count]; ++i)
+		//NSLog(@"K: %@", [panel objectAtIndex:i]);
 }
 
 - (void) arrangeTile {
@@ -217,9 +262,9 @@
 
 
 	// load dictionary
-	NSString* path = [[NSBundle mainBundle] pathForResource:@"LetterType" ofType:@"plist"];
+	NSString* path = [[NSBundle mainBundle] pathForResource:@"TypeList" ofType:@"plist"];
 	NSMutableDictionary* tmpDict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
-	self.letterType = tmpDict;
+	self.typeList = tmpDict;
 	[tmpDict release];
 	
 	// load spelling
@@ -233,7 +278,21 @@
 	for (i=0; i < nObj; ++i) {
 		NSDictionary* spellWord = [self.objSpell objectAtIndex:i];
 		NSLog(@"%@", [spellWord objectForKey:@"name"]);
+		NSMutableArray* word = [spellWord objectForKey:@"spell"];
+		int i, c = [word count];
+		//for (i=0; i < c; ++i) {
+		//	NSLog(@"- %@", [word objectAtIndex:i]);
+		//}
+		NSLog(@"- %@", word);
+		
+		[self recurseForWord:word];
+		//for (i=0; i < c; ++i) {
+		//	NSLog(@"- %@", [word objectAtIndex:i]);
+		//}
+		NSLog(@"~ %@",word);
+		
 	}
+	
 	
 	//UIImageView* iv = [[UIImageView alloc] initWithFrame:CGRectMake(160, 240, 50, 50)];
 	//[iv setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5]];
@@ -282,7 +341,7 @@
 
 - (void)dealloc {
 	
-	[letterType dealloc];
+	[typeList dealloc];
 	
     [super dealloc];
 }

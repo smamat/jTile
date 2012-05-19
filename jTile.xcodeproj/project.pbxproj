@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13ED44C9156392A8009C51CC /* LetterType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13ED44C8156392A8009C51CC /* LetterType.plist */; };
+		13ED44C9156392A8009C51CC /* TypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13ED44C8156392A8009C51CC /* TypeList.plist */; };
 		1D3623260D0F684500981E51 /* jTileAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* jTileAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13ED44C8156392A8009C51CC /* LetterType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LetterType.plist; sourceTree = "<group>"; };
+		13ED44C8156392A8009C51CC /* TypeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TypeList.plist; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* jTileAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jTileAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* jTileAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = jTileAppDelegate.m; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 				2899E5210DE3E06400AC0155 /* jTileViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* jTile-Info.plist */,
-				13ED44C8156392A8009C51CC /* LetterType.plist */,
+				13ED44C8156392A8009C51CC /* TypeList.plist */,
 				4344AD651565FD580042185D /* ObjectSpelling.plist */,
 			);
 			name = Resources;
@@ -174,7 +174,7 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* jTileViewController.xib in Resources */,
-				13ED44C9156392A8009C51CC /* LetterType.plist in Resources */,
+				13ED44C9156392A8009C51CC /* TypeList.plist in Resources */,
 				4344AD661565FD580042185D /* ObjectSpelling.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

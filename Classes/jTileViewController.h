@@ -11,21 +11,23 @@
 @interface jTileViewController : UIViewController {
 
 	//NSMutableArray* letterType;
-	NSMutableDictionary* letterType;
+	NSMutableDictionary* typeList;
 	NSMutableArray* objSpell;
 }
 
 //@property (nonatomic,retain) NSMutableArray* letterType;
-@property (nonatomic,retain) NSMutableDictionary* letterType;
+@property (nonatomic,retain) NSMutableDictionary* typeList;
 @property (nonatomic,retain) NSMutableArray* objSpell;
 
 - (void) arrangeTile;
 - (float) widthOfRow : (NSMutableArray*)tileset;
 - (void) placeTile : (NSMutableArray*)tileset startAtCoord:(float)xcoord;
 - (void) detPos : (NSMutableArray*)panel;
-- (NSMutableArray*) recPanelWithPrevType :(NSInteger)prevType forPanel:(NSMutableArray*)panel;
+//- (NSMutableArray*) recPanelWithPrevType :(NSInteger)prevType forPanel:(NSMutableArray*)panel;
+- (void) recPanelWithPrevType :(NSInteger)prevType forPanel:(NSMutableArray*)panel;
 
-
+- (void) recurseForWord :(NSMutableArray*)word withPrevType:(NSInteger)prevType;
+- (void) recurseForWord :(NSMutableArray*)word;
 
 @end
 
