@@ -16,33 +16,59 @@
 
 /* calculate width of row by pixels */
 
-- (float) widthOfRow :(NSMutableArray*)tileset {
+- (CGFloat) widthOfPanelWithWord :(NSMutableArray*)word {
 	
-	float arrSize = [tileset count];
+	NSUInteger wordLength = [word count];
 	
-	NSLog(@"There are %d tiles", arrSize);
+	NSLog(@"There are %d tiles", wordLength);
 
-	NSUInteger i;
+	//NSUInteger i;
+	CGFloat totalWidth = 0.0;
 	
-	float totalSize = 0.0;
-	
-	for (i=0; i<arrSize; ++i) {
-		NSLog(@"Letter: %@", (NSString*)[tileset objectAtIndex:i]);
-		NSString* fname = [NSString stringWithFormat:@"%@.png", [tileset objectAtIndex:i]];
+	for (NSUInteger i=0; i < wordLength; ++i) {
+		NSLog(@"Letter: %@", (NSString*)[word objectAtIndex:i]);
+		NSString* fname = [NSString stringWithFormat:@"%@.png", [word objectAtIndex:i]];
+		
 		UIImage* im = [UIImage imageNamed:fname];
 		NSLog(@"length: %f", im.size.width);
-		totalSize += im.size.width;
+		totalWidth += im.size.width;
 	}
 
+	return totalWidth;
+}
+
+- (void) putPanelOfWord :(NSMutableArray*)word withMarginLength:(CGFloat)mLength {
 	
-	return totalSize;
+	//- give letter tile for later easy retrieval
+	NSInteger tag = 1000;
+	
+	NSInteger i = [word count]-1;
+	
+	//- start from right (because Arabic)
+	for (; i >= 0; --i) {
+		
+		NSString* fname = [NSString stringWithFormat:@"%@.png", [word objectAtIndex:i]];
+		UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:fname]];
+		iv.tag = tag++;
+		[self.view addSubview:iv];
+		
+		//- compute x-coord for this tile
+		//- x is coord for tile's centre, accounting for margin length
+		CGFloat w = iv.frame.size.width;
+		CGFloat x = mLength + w/2.0;
+		iv.center = CGPointMake(x, 100);
+		
+		[iv release];
+		
+		//- incr marginLength by skipping width of this tile
+		mLength += w;
+	}
 }
 
 - (void) placeTile :(NSMutableArray*)tileset startAtCoord:(float)xcoord {
 	
 	NSUInteger nTile = [tileset count];
-	
-	
+		
 	NSInteger tag = 1000;
 	
 	NSInteger i = nTile-1;
@@ -277,10 +303,15 @@
 	// try recursion
 	//[self detPos:panel];
 
-	[self detPos:panel];
-	 
 	[panel release];
 	[tileArray release];
+}
+
+- (CGFloat) marginForPanelWidth : (CGFloat)panelWidth {
+	//- simple at the moment, might need different calculation
+	//- for different devices, UIView object dependent etc.
+	
+	return ((self.view.frame.size.width) - panelWidth)/2.0;
 }
 
 - (void) arrangeTileForWord :(NSMutableArray *)word {
@@ -327,6 +358,7 @@
 	self.objSpell = tmpArray;
 	[tmpArray release];
 	
+	/* Test
 	NSInteger i, nObj = [self.objSpell count];
 	
 	for (i=0; i < nObj; ++i) {
@@ -338,11 +370,21 @@
 		//NSMutableArray* newWord = [self recurseForWord:word withPrevType:1];
 		NSMutableArray* newWord = [self recurseForWord:word];
 		NSLog(@"~ %@",newWord);
-
-		
 	}
+	 */
+	
+	NSDictionary* aSpell = [self.objSpell objectAtIndex:1];
+	NSMutableArray* word = [aSpell objectForKey:@"spell"];
+	NSMutableArray* sword = [self recurseForWord:word];
+	
+	CGFloat panelWidth = [self widthOfPanelWithWord:sword];
+	CGFloat marginLength = [self marginForPanelWidth:panelWidth];
+	NSLog(@"panel width = %f, margin length = %f", panelWidth, marginLength);
 	
 	
+	[self putPanelOfWord:sword withMarginLength:marginLength];
+	
+	/*
 	//UIImageView* iv = [[UIImageView alloc] initWithFrame:CGRectMake(160, 240, 50, 50)];
 	//[iv setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5]];
 	//UIImage* im = [UIImage imageNamed:@"ya2.png"];
@@ -360,7 +402,7 @@
 	//[iv2 release];
 
 	//[self arrangeTile];
-	
+	*/
 						
 
 }

@@ -20,7 +20,13 @@
 @property (nonatomic,retain) NSMutableArray* objSpell;
 
 - (void) arrangeTile;
-- (float) widthOfRow : (NSMutableArray*)tileset;
+
+- (CGFloat) widthOfPanelWithWord : (NSMutableArray*)word;
+- (CGFloat) marginForPanelWidth : (CGFloat)panelWidth;
+
+- (void) putPanelOfWord : (NSMutableArray*)word withMarginLength : (CGFloat)marginLength;
+
+
 - (void) placeTile : (NSMutableArray*)tileset startAtCoord:(float)xcoord;
 //- (void) detPos : (NSMutableArray*)panel;
 //- (void) recPanelWithPrevType :(NSInteger)prevType forPanel:(NSMutableArray*)panel;
