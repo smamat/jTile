@@ -14,8 +14,16 @@
 @synthesize typeList;
 @synthesize objSpell;
 
-/* calculate width of row by pixels */
+- (void) drawPanelAlignment {
+	CGContextRef con = UIGraphicsGetCurrentContext();
+	
+	CGContextMoveToPoint(con, 100, 100);
+	CGContextAddLineToPoint(con, 100, 19);
+	CGContextSetLineWidth(con, 20);
+	CGContextStrokePath(con);
+}
 
+/* calculate width of row by pixels */
 - (CGFloat) widthOfPanelWithWord :(NSMutableArray*)word {
 	
 	NSUInteger wordLength = [word count];
@@ -373,6 +381,7 @@
 	}
 	 */
 	
+	// test crude tiling
 	NSDictionary* aSpell = [self.objSpell objectAtIndex:1];
 	NSMutableArray* word = [aSpell objectForKey:@"spell"];
 	NSMutableArray* sword = [self recurseForWord:word];
@@ -383,6 +392,8 @@
 	
 	
 	[self putPanelOfWord:sword withMarginLength:marginLength];
+	
+	[self drawPanelAlignment];
 	
 	/*
 	//UIImageView* iv = [[UIImageView alloc] initWithFrame:CGRectMake(160, 240, 50, 50)];

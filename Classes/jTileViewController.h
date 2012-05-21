@@ -36,5 +36,9 @@
 
 - (void) arrangeTileForWord : (NSMutableArray*) word;
 
+//- draw lines for aligning panels vertically
+- (void) drawPanelAlignment;
+
+
 @end
 
