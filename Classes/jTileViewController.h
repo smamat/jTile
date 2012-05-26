@@ -11,30 +11,20 @@
 @interface jTileViewController : UIViewController {
 
 	//NSMutableArray* letterType;
-	NSMutableDictionary* typeList;
+	NSMutableDictionary* letterList;
 	NSMutableArray* objSpell;
 }
 
 //@property (nonatomic,retain) NSMutableArray* letterType;
-@property (nonatomic,retain) NSMutableDictionary* typeList;
+@property (nonatomic,retain) NSMutableDictionary* letterList;
 @property (nonatomic,retain) NSMutableArray* objSpell;
-
-- (void) arrangeTile;
 
 - (CGFloat) widthOfPanelWithWord : (NSMutableArray*)word;
 - (CGFloat) marginForPanelWidth : (CGFloat)panelWidth;
-
 - (void) putPanelOfWord : (NSMutableArray*)word withMarginLength : (CGFloat)marginLength;
-
-
-- (void) placeTile : (NSMutableArray*)tileset startAtCoord:(float)xcoord;
-//- (void) detPos : (NSMutableArray*)panel;
-//- (void) recPanelWithPrevType :(NSInteger)prevType forPanel:(NSMutableArray*)panel;
 
 - (NSMutableArray*) recurseForWord : (NSMutableArray*)word withPrevType : (NSInteger)prevType;
 - (NSMutableArray*) recurseForWord : (NSMutableArray*)word;
-
-- (void) arrangeTileForWord : (NSMutableArray*) word;
 
 //- draw lines for aligning panels vertically
 - (void) drawPanelAlignment;

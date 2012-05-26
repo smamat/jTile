@@ -7,6 +7,11 @@
  *
  */
 
+//- letter type
 #define TYPE_A 1
 #define TYPE_B 2
 #define TYPE_C 3
+
+//- keys for LetterList dictionary
+#define T_KEY	@"type"
+#define Y_KEY	@"yalign"

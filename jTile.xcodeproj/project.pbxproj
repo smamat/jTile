@@ -17,6 +17,12 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* jTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* jTileViewController.m */; };
 		4344AD661565FD580042185D /* ObjectSpelling.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4344AD651565FD580042185D /* ObjectSpelling.plist */; };
+		437CBC17156DCBBB004BDB97 /* LetterList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 437CBC16156DCBBB004BDB97 /* LetterList.plist */; };
+		43905CDB1571188F00620E6A /* nun1.png in Resources */ = {isa = PBXBuildFile; fileRef = 43905CDA1571188F00620E6A /* nun1.png */; };
+		43905CEA15711B5E00620E6A /* dash0.png in Resources */ = {isa = PBXBuildFile; fileRef = 43905CE915711B5E00620E6A /* dash0.png */; };
+		43905CEC15711B6300620E6A /* dash1.png in Resources */ = {isa = PBXBuildFile; fileRef = 43905CEB15711B6300620E6A /* dash1.png */; };
+		43CE1896156BAF150056E7C3 /* PanelGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE1895156BAF150056E7C3 /* PanelGrid.m */; };
+		43CE18C3156BBC820056E7C3 /* bagrid.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CE18C2156BBC820056E7C3 /* bagrid.png */; };
 		43EDCFBC15689798002AD3E7 /* alif1.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EDCFBB15689798002AD3E7 /* alif1.png */; };
 		43EDCFC0156897A0002AD3E7 /* ya1.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EDCFBF156897A0002AD3E7 /* ya1.png */; };
 		43EDCFC2156897A5002AD3E7 /* mim3.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EDCFC1156897A5002AD3E7 /* mim3.png */; };
@@ -45,7 +51,14 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* jTile_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jTile_Prefix.pch; sourceTree = "<group>"; };
 		4344AD651565FD580042185D /* ObjectSpelling.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ObjectSpelling.plist; sourceTree = "<group>"; };
+		437CBC16156DCBBB004BDB97 /* LetterList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LetterList.plist; sourceTree = "<group>"; };
+		43905CDA1571188F00620E6A /* nun1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nun1.png; sourceTree = "<group>"; };
+		43905CE915711B5E00620E6A /* dash0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash0.png; sourceTree = "<group>"; };
+		43905CEB15711B6300620E6A /* dash1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash1.png; sourceTree = "<group>"; };
 		43B0A5E015631D8B008618CF /* AbjadConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbjadConstants.h; sourceTree = "<group>"; };
+		43CE1894156BAF150056E7C3 /* PanelGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanelGrid.h; sourceTree = "<group>"; };
+		43CE1895156BAF150056E7C3 /* PanelGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanelGrid.m; sourceTree = "<group>"; };
+		43CE18C2156BBC820056E7C3 /* bagrid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bagrid.png; sourceTree = "<group>"; };
 		43EDCFBB15689798002AD3E7 /* alif1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alif1.png; sourceTree = "<group>"; };
 		43EDCFBF156897A0002AD3E7 /* ya1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ya1.png; sourceTree = "<group>"; };
 		43EDCFC1156897A5002AD3E7 /* mim3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mim3.png; sourceTree = "<group>"; };
@@ -77,11 +90,13 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				43B0A5E015631D8B008618CF /* AbjadConstants.h */,
 				1D3623240D0F684500981E51 /* jTileAppDelegate.h */,
 				1D3623250D0F684500981E51 /* jTileAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* jTileViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* jTileViewController.m */,
-				43B0A5E015631D8B008618CF /* AbjadConstants.h */,
+				43CE1894156BAF150056E7C3 /* PanelGrid.h */,
+				43CE1895156BAF150056E7C3 /* PanelGrid.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -124,6 +139,7 @@
 				8D1107310486CEB800E47090 /* jTile-Info.plist */,
 				13ED44C8156392A8009C51CC /* TypeList.plist */,
 				4344AD651565FD580042185D /* ObjectSpelling.plist */,
+				437CBC16156DCBBB004BDB97 /* LetterList.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -141,9 +157,13 @@
 		43CBCEF1155CC2CF007DC602 /* Letters */ = {
 			isa = PBXGroup;
 			children = (
+				43905CE915711B5E00620E6A /* dash0.png */,
+				43905CEB15711B6300620E6A /* dash1.png */,
+				43CE18C2156BBC820056E7C3 /* bagrid.png */,
 				43EDD0151568B1C3002AD3E7 /* ba1.png */,
 				43EDCFF91568A277002AD3E7 /* ta1.png */,
 				43EDD00A1568A2CC002AD3E7 /* nun2.png */,
+				43905CDA1571188F00620E6A /* nun1.png */,
 				43EDCFFD1568A282002AD3E7 /* qaf0.png */,
 				43EDCFEB15689F3E002AD3E7 /* nga0.png */,
 				43EDCFE915689F3A002AD3E7 /* ra1.png */,
@@ -220,6 +240,11 @@
 				43EDCFFE1568A282002AD3E7 /* qaf0.png in Resources */,
 				43EDD00B1568A2CC002AD3E7 /* nun2.png in Resources */,
 				43EDD0161568B1C3002AD3E7 /* ba1.png in Resources */,
+				43CE18C3156BBC820056E7C3 /* bagrid.png in Resources */,
+				437CBC17156DCBBB004BDB97 /* LetterList.plist in Resources */,
+				43905CDB1571188F00620E6A /* nun1.png in Resources */,
+				43905CEA15711B5E00620E6A /* dash0.png in Resources */,
+				43905CEC15711B6300620E6A /* dash1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +258,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* jTileAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* jTileViewController.m in Sources */,
+				43CE1896156BAF150056E7C3 /* PanelGrid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

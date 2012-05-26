@@ -35,5 +35,19 @@
 			<string>qaf</string>
 		</array>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>bununununuk</string>
+		<key>spell</key>
+		<array>
+			<string>ba</string>
+			<string>wau</string>
+			<string>nun</string>
+			<string>wau</string>
+			<string>nun</string>
+			<string>wau</string>
+			<string>qaf</string>
+		</array>
+	</dict>
 </array>
 </plist>

@@ -8,19 +8,27 @@
 
 #import "jTileViewController.h"
 #import "AbjadConstants.h"
+#import "PanelGrid.h"
 
 @implementation jTileViewController
 
-@synthesize typeList;
+@synthesize letterList;
 @synthesize objSpell;
 
 - (void) drawPanelAlignment {
-	CGContextRef con = UIGraphicsGetCurrentContext();
 	
-	CGContextMoveToPoint(con, 100, 100);
-	CGContextAddLineToPoint(con, 100, 19);
-	CGContextSetLineWidth(con, 20);
-	CGContextStrokePath(con);
+	CGFloat vWidth = self.view.frame.size.width;
+	PanelGrid* panelGrid = [[PanelGrid alloc] initWithFrame:CGRectMake(0,0,vWidth,100)];
+	
+	panelGrid.gridScale = 0.72;
+	
+	[self.view addSubview:panelGrid];
+	panelGrid.center = self.view.center;
+	//panelGrid.center = CGPointMake(0, 50);
+	
+	//NSLog(@"%@", panelGrid.center.y);
+	
+	[panelGrid release];
 }
 
 /* calculate width of row by pixels */
@@ -45,6 +53,11 @@
 	return totalWidth;
 }
 
+/* The pre-condition for this method is
+ * each element of "word" is a string where
+ * it consists of a letter name and its pos
+ * e.g. @"alif1", @"ya2", @"mim3"
+ */
 - (void) putPanelOfWord :(NSMutableArray*)word withMarginLength:(CGFloat)mLength {
 	
 	//- give letter tile for later easy retrieval
@@ -52,10 +65,20 @@
 	
 	NSInteger i = [word count]-1;
 	
+	//- coarse y-coord for tile panel
+	//CGFloat panelY = self.view.frame.size.height/2.0;
+	CGFloat panelY = self.view.center.y;
+	
 	//- start from right (because Arabic)
 	for (; i >= 0; --i) {
+		//- get letter info
+		NSString* currLetPos = [word objectAtIndex:i];
+		int wLength = [currLetPos length];
+		NSString* currLetter = [currLetPos substringWithRange:NSMakeRange(0, wLength-1)];
+		int lpos = [[currLetPos substringWithRange:NSMakeRange(wLength-1, 1)] integerValue];
+		NSLog(@"letter:%@, pos:%d", currLetPos, lpos);
 		
-		NSString* fname = [NSString stringWithFormat:@"%@.png", [word objectAtIndex:i]];
+		NSString* fname = [NSString stringWithFormat:@"%@.png", currLetPos];
 		UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:fname]];
 		iv.tag = tag++;
 		[self.view addSubview:iv];
@@ -64,12 +87,33 @@
 		//- x is coord for tile's centre, accounting for margin length
 		CGFloat w = iv.frame.size.width;
 		CGFloat x = mLength + w/2.0;
-		iv.center = CGPointMake(x, 100);
+		
+		//- fine-tuned y-coord for tile panel
+		NSDictionary* letterInfo = [self.letterList objectForKey:currLetter];
+		CGFloat	dy = [[[letterInfo objectForKey:Y_KEY] objectAtIndex:lpos] floatValue];
+		
+		iv.center = CGPointMake(x, panelY+dy);
 		
 		[iv release];
+
+		// iv's coordinates
+		/*CGRect ivf = iv.frame;
+		//NSLog(@"%0.2f, %0.2f, %0.2f, %0.2f", ivf.origin.x, ivf.origin.y, ivf.size.width, ivf.size.height);
 		
+		UIImageView* ivd = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dash0.png"]];
+		iv.tag = tag++;
+		[self.view addSubview:ivd];
+		
+		CGFloat dcx = x-ivf.size.width/2.0;
+		ivd.center = CGPointMake(dcx, panelY+dy);
+		
+		
+		[ivd release];
+		*/
 		//- incr marginLength by skipping width of this tile
 		mLength += w;
+		
+		
 	}
 }
 
@@ -101,6 +145,14 @@
 	
 }
 
+/* -- Ligature algorithm --
+ * The algorithm handles how an alphabet is connected to the others.
+ * This is a recursive algorithm.
+ * recurseForWord :word should be called for each word,
+ * which will call recurseForWord :word :prevType where the algorithm
+ * is executed.
+ */
+
 - (NSMutableArray*) recurseForWord:(NSMutableArray*)word {
 	return [self recurseForWord:word withPrevType:1];
 }
@@ -108,7 +160,6 @@
 - (NSMutableArray*) recurseForWord :(NSMutableArray*)word withPrevType:(NSInteger)prevType {
 	
 	NSInteger pos;
-	//NSMutableArray* word = [[uword mutableCopy] autorelease]; //- ensure array mutable each time
 	NSString* currLetter = [word objectAtIndex:0]; //- copy of word's first element
 	
 	//- BASE CASE: last letter
@@ -119,23 +170,22 @@
 		if (prevType == TYPE_A)	pos = 0;
 		else pos = 3;
 		NSString* modfLetter = [currLetter stringByAppendingFormat:@"%d", pos];
-		//NSLog(@"prevType: %d, last letter: %@", prevType, modfLetter);
 		
 		//- return new word with modified letter
 		NSMutableArray* newWord = [[NSMutableArray alloc] initWithObjects:modfLetter, nil];
 		return [newWord autorelease];
 	}
-	
+
 	//- RECURSIVE CASE: front/middle letter
 	
 	//- get current letter's type
-	NSInteger lType = [[self.typeList objectForKey:currLetter] integerValue];
+	NSDictionary* letterInfo = [self.letterList objectForKey:currLetter];
+	NSInteger lType = [[letterInfo objectForKey:T_KEY] integerValue];
 	
 	//- add pos to current letter
 	if (prevType == TYPE_A) pos = 1;
 	else pos = 2;
 	NSString* modfLetter = [currLetter stringByAppendingFormat:@"%d", pos];
-	//NSLog(@"prevType:%d, mid letter: %@", prevType, modfLetter);
 	
 	//- recurse remaining letters
 	NSMutableArray* subWord = (NSMutableArray*)[word subarrayWithRange:NSMakeRange(1,[word count]-1)];
@@ -148,172 +198,6 @@
 	
 }
 
-
-/*
-- (NSMutableArray*) recurseForWord :(NSMutableArray*)uword withPrevType:(NSInteger)prevType {
-
-	NSInteger pos;
-	NSMutableArray* word = [[uword mutableCopy] autorelease]; //- ensure array mutable each time
-	NSString* currLetter = [word objectAtIndex:0]; //- copy of word's first element
-	
-	//- base case (last letter)
-	if ([word count] == 1) {
-		if (prevType == TYPE_A)
-			pos = 0;
-		else
-			pos = 3;
-		[word replaceObjectAtIndex:0
-						withObject:[currLetter stringByAppendingFormat:@"%d", pos]];
-		NSLog(@"prevType:%d, last letter: %@", prevType, (NSString*)[word objectAtIndex:0]);
-		return word;
-	}
-	
-	//- front/middle letter
-	if (prevType == TYPE_A) 
-		pos = 1;
-	else
-		pos = 2;
-		
-	//- get current letter's type
-	NSInteger lType = [[self.typeList objectForKey:currLetter] integerValue];
-		
-	//- change letter
-	[word replaceObjectAtIndex:0
-					withObject:[currLetter stringByAppendingFormat:@"%d", pos]];
-		
-	NSLog(@"prevType:%d, mid letter: %@", prevType, [word objectAtIndex:0]);
-	
-	//- recurse remaining letters
-	NSMutableArray* subWord = (NSMutableArray*)[word subarrayWithRange:NSMakeRange(1,[word count]-1)];
-	NSMutableArray* sw = [self recurseForWord:subWord withPrevType:lType];
-	
-	//- return newCurrLetter + recurseForWord(subWord,lType)
-	NSMutableArray* nw = [[[NSMutableArray alloc] initWithObjects:[word objectAtIndex:0], nil] autorelease];
-	return (NSMutableArray*)[nw arrayByAddingObjectsFromArray:sw];
-	
-	
-	//return [self recurseForWord:subWord withPrevType:lType];
-	
-}
-*/	
-
-/*- (void) recPanelWithPrevType:(NSInteger)prevType forPanel:(NSMutableArray*)panel1 {
-
-	
-	NSInteger pos;
-	
-	NSMutableArray* panel = [panel1 mutableCopy];
-	
-	// - at last letter
-	if ([panel count] == 1) {
-		if (prevType == TYPE_A)
-			pos = 0;
-		else 
-			pos = 3;
-		
-		[panel replaceObjectAtIndex:0
-						 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
-		NSLog(@"last letter: %@",(NSString*)[panel objectAtIndex:0]);
-		//return panel;
-		return;		
-	}
-	
-	NSLog(@"prevType: %d", prevType);
-	// - front/middle letter
-	if (prevType == TYPE_A)
-		pos = 1;
-	else
-		pos = 2;
-	
-	//- get letter type
-	NSInteger lType = [[self.typeList objectForKey:[panel objectAtIndex:0]] integerValue];
-
-	// change current letter
-	//NSString* tmpStr = [(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos];
-	[panel replaceObjectAtIndex:0
-					 withObject:[(NSString*)[panel objectAtIndex:0] stringByAppendingFormat:@"%d", pos]];
-	NSLog(@"letter: %@", [panel objectAtIndex:0]);
-	
-	// recurse the rest
-	NSLog(@"letter type: %d", lType);
-	NSInteger l = [panel count]-1;
-	
-	NSMutableArray* sp = (NSMutableArray*)[panel subarrayWithRange:NSMakeRange(1,l)];
-
-			
-
-														
-	[self recPanelWithPrevType:lType forPanel:(NSMutableArray*)sp];
-		
-	//return panel;
-	
-		
-}*/
-
-/*- (void) detPos : (NSMutableArray*)panel {
-	
-	//NSLog(@"the letters are:");
-	//int i = 0, c = [panel count];
-	
-	//for (; i<c; ++i) 
-	//	NSLog(@"%@", [panel objectAtIndex:i]);
-	
-	
-	
-	//NSMutableArray* rpanel = [self recPanelWithPrevType:TYPE_A forPanel:panel]; 
-	[self recPanelWithPrevType:TYPE_A forPanel:panel]; 
-	
-	//NSLog( @"size of rpanel = %d", [rpanel count]);
-	
-	//for (int i=0; i<[rpanel count]; ++i)
-		//NSLog(@"K: %@", [panel objectAtIndex:i]);
-}*/
-
-- (void) arrangeTile {
-	
-	/*	
-	UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alif1.png"]];
-	NSLog(@"%f x %f", iv.frame.size.width, iv.frame.size.height);
-	[self.view addSubview:iv]; 
-	[iv release];
-	
-	UIImageView* iv2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ya2.png"]];
-	NSLog(@"%f x %f", iv2.frame.size.width, iv2.frame.size.height);
-	[self.view addSubview:iv2]; 
-	iv2.center = CGPointMake(30, 30);
-	[iv2 release];
-	
-	UIImageView* iv3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mim4.png"]];
-	NSLog(@"%f x %f", iv3.frame.size.width, iv3.frame.size.height);
-	[self.view addSubview:iv3]; 
-	[iv3 release];
-	 */
-	
-	NSMutableArray* tileArray = [[NSMutableArray alloc] initWithObjects:@"alif1", @"ya2", @"mim4", nil];
-	
-	//NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"alif", @"ya", @"mim", @"sin", nil];
-	NSMutableArray* panel = [[NSMutableArray alloc] initWithObjects:@"ba", @"wau", @"ra", @"wau", @"nga", nil];
-	
-	
-
-	//float rowWidth = [self widthOfRow:tileArray];
-	
-	//NSLog( @"size of tiles: %f", rowWidth );
-	
-
-	
-	//float a = ((self.view.frame.size.width) - rowWidth)/2;
-	
-	//NSLog( @"a is %f", a);
-	
-	//[self placeTile:tileArray startAtCoord:a];
-	
-	// try recursion
-	//[self detPos:panel];
-
-	[panel release];
-	[tileArray release];
-}
 
 - (CGFloat) marginForPanelWidth : (CGFloat)panelWidth {
 	//- simple at the moment, might need different calculation
@@ -353,11 +237,19 @@
 
 	NSLog( @"device: %f x %f", self.view.frame.size.width, self.view.frame.size.height );
 
+	// bagrid as guide
+	UIImageView* bgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bagrid.png"]];
+	//[self.view addSubview:bgv ];
+	bgv.center = self.view.center;
+	//NSLog( @"bagrid y: %f", bgv.center.y );
+	[bgv release];
+	
 
+	
 	// load dictionary
-	NSString* path = [[NSBundle mainBundle] pathForResource:@"TypeList" ofType:@"plist"];
+	NSString* path = [[NSBundle mainBundle] pathForResource:@"LetterList" ofType:@"plist"];
 	NSMutableDictionary* tmpDict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
-	self.typeList = tmpDict;
+	self.letterList = tmpDict;
 	[tmpDict release];
 	
 	// load spelling
@@ -366,55 +258,22 @@
 	self.objSpell = tmpArray;
 	[tmpArray release];
 	
-	/* Test
-	NSInteger i, nObj = [self.objSpell count];
-	
-	for (i=0; i < nObj; ++i) {
-		NSDictionary* spellWord = [self.objSpell objectAtIndex:i];
-		NSLog(@"%@", [spellWord objectForKey:@"name"]);
-		NSMutableArray* word = [spellWord objectForKey:@"spell"];
-	
-		NSLog(@"- %@", word);
-		//NSMutableArray* newWord = [self recurseForWord:word withPrevType:1];
-		NSMutableArray* newWord = [self recurseForWord:word];
-		NSLog(@"~ %@",newWord);
-	}
-	 */
-	
+
 	// test crude tiling
-	NSDictionary* aSpell = [self.objSpell objectAtIndex:1];
+	NSLog(@"spell: %d", [self.objSpell count]);
+	NSDictionary* aSpell = [self.objSpell objectAtIndex:3];
 	NSMutableArray* word = [aSpell objectForKey:@"spell"];
 	NSMutableArray* sword = [self recurseForWord:word];
-	
+
+
 	CGFloat panelWidth = [self widthOfPanelWithWord:sword];
 	CGFloat marginLength = [self marginForPanelWidth:panelWidth];
 	NSLog(@"panel width = %f, margin length = %f", panelWidth, marginLength);
 	
-	
+
 	[self putPanelOfWord:sword withMarginLength:marginLength];
 	
 	[self drawPanelAlignment];
-	
-	/*
-	//UIImageView* iv = [[UIImageView alloc] initWithFrame:CGRectMake(160, 240, 50, 50)];
-	//[iv setBackgroundColor:[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5]];
-	//UIImage* im = [UIImage imageNamed:@"ya2.png"];
-	//UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ya2.png"]];
-	//[iv setImage:im];
-	//iv.contentMode = UIViewContentModeScaleToFill;
-	//[self.view addSubview: iv];
-	//iv.center = self.view.center;
-	//NSLog( @"tile: %f x %f", iv.frame.size.width, iv.frame.size.height );
-	//[iv release];
-	
-	//UIImageView* iv2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mim4.png"]];
-	//[self.view addSubview: iv2];
-	//iv2.center = self.view.center;
-	//[iv2 release];
-
-	//[self arrangeTile];
-	*/
-						
 
 }
 
@@ -443,7 +302,7 @@
 
 - (void)dealloc {
 	
-	[typeList dealloc];
+	[letterList dealloc];
 	[objSpell dealloc];
 	
     [super dealloc];
