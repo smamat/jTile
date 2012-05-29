@@ -20,13 +20,10 @@
 	CGFloat vWidth = self.view.frame.size.width;
 	PanelGrid* panelGrid = [[PanelGrid alloc] initWithFrame:CGRectMake(0,0,vWidth,100)];
 	
-	panelGrid.gridScale = 0.72;
+	panelGrid.gridScale = 1; //0.72;
 	
 	[self.view addSubview:panelGrid];
 	panelGrid.center = self.view.center;
-	//panelGrid.center = CGPointMake(0, 50);
-	
-	//NSLog(@"%@", panelGrid.center.y);
 	
 	[panelGrid release];
 }
@@ -38,7 +35,6 @@
 	
 	NSLog(@"There are %d tiles", wordLength);
 
-	//NSUInteger i;
 	CGFloat totalWidth = 0.0;
 	
 	for (NSUInteger i=0; i < wordLength; ++i) {
@@ -66,7 +62,6 @@
 	NSInteger i = [word count]-1;
 	
 	//- coarse y-coord for tile panel
-	//CGFloat panelY = self.view.frame.size.height/2.0;
 	CGFloat panelY = self.view.center.y;
 	
 	//- start from right (because Arabic)
@@ -96,20 +91,6 @@
 		
 		[iv release];
 
-		// iv's coordinates
-		/*CGRect ivf = iv.frame;
-		//NSLog(@"%0.2f, %0.2f, %0.2f, %0.2f", ivf.origin.x, ivf.origin.y, ivf.size.width, ivf.size.height);
-		
-		UIImageView* ivd = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dash0.png"]];
-		iv.tag = tag++;
-		[self.view addSubview:ivd];
-		
-		CGFloat dcx = x-ivf.size.width/2.0;
-		ivd.center = CGPointMake(dcx, panelY+dy);
-		
-		
-		[ivd release];
-		*/
 		//- incr marginLength by skipping width of this tile
 		mLength += w;
 		
@@ -139,10 +120,7 @@
 		
 		xcoord += w;
 	}
-	
-	//UIImageView *iv0 = (UIImageView*)[self.view viewWithTag:1001];
-	//iv0.center = self.view.center;
-	
+
 }
 
 /* -- Ligature algorithm --
@@ -237,11 +215,11 @@
 
 	NSLog( @"device: %f x %f", self.view.frame.size.width, self.view.frame.size.height );
 
-	// bagrid as guide
+	//- bagrid as alignment guide
 	UIImageView* bgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bagrid.png"]];
+	//- uncomment this to display bagrid in app
 	//[self.view addSubview:bgv ];
 	bgv.center = self.view.center;
-	//NSLog( @"bagrid y: %f", bgv.center.y );
 	[bgv release];
 	
 

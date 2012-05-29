@@ -6,6 +6,7 @@
 //  Copyright 2012 DD Multimedia Solutions Sdn. Bhd. All rights reserved.
 //
 
+
 #import "PanelGrid.h"
 
 
@@ -18,7 +19,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code.
-		//self.backgroundColor = [UIColor greenColor];
 		self.opaque = NO;
 		self.alpha = 0.5;
 		self.gridScale = 1;
@@ -38,7 +38,6 @@
 	
 	CGFloat y = 0;
 	while (y<gHeight) {
-		//NSLog(@"y: %f", y);
 		CGContextMoveToPoint(con, 0, y);
 		CGContextAddLineToPoint(con, xend, y);
 		y += gapY;
