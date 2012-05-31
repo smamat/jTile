@@ -26,6 +26,8 @@
 - (CGFloat) widthOfPanelWithWord : (NSMutableArray*)word;
 - (CGFloat) marginForPanelWidth : (CGFloat)panelWidth;
 - (void) putPanelOfWord : (NSMutableArray*)word withMarginLength : (CGFloat)marginLength;
+//- same as putPanelOfWord but use image context and only one UIViewImage as panel
+- (void) putLettersOfWord : (NSMutableArray*)word;
 
 //- implement algorithm for determining letter post (alone, front, middle, end)
 //- alone - 0, front - 1, middle - 2, end - 3

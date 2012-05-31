@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		139B5E1F1574F9D50017C267 /* JawiLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 139B5E1E1574F9D50017C267 /* JawiLetter.m */; };
 		13ED44C9156392A8009C51CC /* TypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13ED44C8156392A8009C51CC /* TypeList.plist */; };
 		1D3623260D0F684500981E51 /* jTileAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* jTileAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		139B5E1D1574F9D50017C267 /* JawiLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JawiLetter.h; sourceTree = "<group>"; };
+		139B5E1E1574F9D50017C267 /* JawiLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JawiLetter.m; sourceTree = "<group>"; };
 		13ED44C8156392A8009C51CC /* TypeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TypeList.plist; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* jTileAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jTileAppDelegate.h; sourceTree = "<group>"; };
@@ -95,6 +98,8 @@
 				1D3623250D0F684500981E51 /* jTileAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* jTileViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* jTileViewController.m */,
+				139B5E1D1574F9D50017C267 /* JawiLetter.h */,
+				139B5E1E1574F9D50017C267 /* JawiLetter.m */,
 				43CE1894156BAF150056E7C3 /* PanelGrid.h */,
 				43CE1895156BAF150056E7C3 /* PanelGrid.m */,
 			);
@@ -259,6 +264,7 @@
 				1D3623260D0F684500981E51 /* jTileAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* jTileViewController.m in Sources */,
 				43CE1896156BAF150056E7C3 /* PanelGrid.m in Sources */,
+				139B5E1F1574F9D50017C267 /* JawiLetter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

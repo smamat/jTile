@@ -22,6 +22,7 @@
 		self.opaque = NO;
 		self.alpha = 0.5;
 		self.gridScale = 1;
+		self.backgroundColor = [UIColor greenColor];
     }
     return self;
 }
@@ -38,6 +39,7 @@
 	
 	CGFloat y = 0;
 	while (y<gHeight) {
+		NSLog(@"panelGrid y-coord: %f", y);
 		CGContextMoveToPoint(con, 0, y);
 		CGContextAddLineToPoint(con, xend, y);
 		y += gapY;

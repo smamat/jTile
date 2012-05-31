@@ -9,6 +9,7 @@
 #import "jTileViewController.h"
 #import "AbjadConstants.h"
 #import "PanelGrid.h"
+#import "JawiLetter.h"
 
 @implementation jTileViewController
 
@@ -93,34 +94,45 @@
 
 		//- incr marginLength by skipping width of this tile
 		mLength += w;
-		
-		
 	}
 }
 
-- (void) placeTile :(NSMutableArray*)tileset startAtCoord:(float)xcoord {
+- (void) putLettersOfWord:(NSMutableArray *)word {
 	
-	NSUInteger nTile = [tileset count];
-		
-	NSInteger tag = 1000;
+	CGFloat panelWidth = [self widthOfPanelWithWord:word];
+	NSLog(@"width of word is: %f", panelWidth);
 	
-	NSInteger i = nTile-1;
-	for (; i >= 0; --i) {
+	// make image context
+	CGFloat imgX = 0;
+	
+	UIGraphicsBeginImageContext(CGSizeMake(panelWidth, 100));
+	
+	for (NSInteger i = [word count]-1; i>=0; --i) {
 		
-		NSString* fname = [NSString stringWithFormat:@"%@.png", [tileset objectAtIndex:i]];
-		UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:fname]];
-		iv.tag = tag++;
-		[self.view addSubview:iv];
-		
-		CGFloat w = iv.frame.size.width;
-		CGFloat x = xcoord + w/2;
-		iv.center = CGPointMake(x,50);
+		//- a JawiLetter object to represent letter
+		//- TODO: need to release letter eventhough not assigning it to self.var?
+		JawiLetter* letter = [[JawiLetter alloc] initWithString:[word objectAtIndex:i]];
 
-		[iv release];
+		//- compute vertical offset of letter
+		CGFloat imgY = [letter yOffsetFromDictionary:self.letterList];
 		
-		xcoord += w;
+		//- draw image onto context
+		UIImage* img = [UIImage imageNamed:[letter imageFilename]];
+		[img drawAtPoint:CGPointMake(imgX, imgY)];
+		
+		//- update x-coord for next letter
+		imgX += [img size].width;
+		
 	}
-
+	UIImage* panelImg = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	UIImageView* iv = [[UIImageView alloc] initWithImage:panelImg];
+	[self.view addSubview:iv];
+	iv.center = self.view.center;
+	NSLog(@"iv.center coords: %f, %f", iv.center.x, iv.center.y);
+	[iv release];
+	
 }
 
 /* -- Ligature algorithm --
@@ -184,11 +196,6 @@
 	return ((self.view.frame.size.width) - panelWidth)/2.0;
 }
 
-- (void) arrangeTileForWord :(NSMutableArray *)word {
-	
-	
-	
-}
 
 /*
 // The designated initializer. Override to perform setup that is required before the view is loaded.
@@ -243,19 +250,18 @@
 	NSMutableArray* word = [aSpell objectForKey:@"spell"];
 	NSMutableArray* sword = [self recurseForWord:word];
 
-
 	CGFloat panelWidth = [self widthOfPanelWithWord:sword];
 	CGFloat marginLength = [self marginForPanelWidth:panelWidth];
 	NSLog(@"panel width = %f, margin length = %f", panelWidth, marginLength);
 	
 
-	[self putPanelOfWord:sword withMarginLength:marginLength];
+	//[self putPanelOfWord:sword withMarginLength:marginLength];
+	[self putLettersOfWord:sword];
 	
 	[self drawPanelAlignment];
+	
 
 }
-
-
 
 /*
 // Override to allow orientations other than the default portrait orientation.
