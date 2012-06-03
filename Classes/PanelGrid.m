@@ -39,7 +39,7 @@
 	
 	CGFloat y = 0;
 	while (y<gHeight) {
-		NSLog(@"panelGrid y-coord: %f", y);
+		//NSLog(@"panelGrid y-coord: %f", y);
 		CGContextMoveToPoint(con, 0, y);
 		CGContextAddLineToPoint(con, xend, y);
 		y += gapY;

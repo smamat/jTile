@@ -39,11 +39,11 @@
 	CGFloat totalWidth = 0.0;
 	
 	for (NSUInteger i=0; i < wordLength; ++i) {
-		NSLog(@"Letter: %@", (NSString*)[word objectAtIndex:i]);
+		//NSLog(@"Letter: %@", (NSString*)[word objectAtIndex:i]);
 		NSString* fname = [NSString stringWithFormat:@"%@.png", [word objectAtIndex:i]];
 		
 		UIImage* im = [UIImage imageNamed:fname];
-		NSLog(@"length: %f", im.size.width);
+		//NSLog(@"length: %f", im.size.width);
 		totalWidth += im.size.width;
 	}
 
@@ -100,11 +100,12 @@
 - (void) putLettersOfWord:(NSMutableArray *)word {
 	
 	CGFloat panelWidth = [self widthOfPanelWithWord:word];
-	NSLog(@"width of word is: %f", panelWidth);
+	NSLog(@"width of word panel is: %f", panelWidth);
 	
 	// make image context
 	CGFloat imgX = 0;
 	
+	//- todo: height == 100?
 	UIGraphicsBeginImageContext(CGSizeMake(panelWidth, 100));
 	
 	for (NSInteger i = [word count]-1; i>=0; --i) {
@@ -112,6 +113,7 @@
 		//- a JawiLetter object to represent letter
 		//- TODO: need to release letter eventhough not assigning it to self.var?
 		JawiLetter* letter = [[JawiLetter alloc] initWithString:[word objectAtIndex:i]];
+		//JawiLetter* letter = [[JawiLetter alloc] init];
 
 		//- compute vertical offset of letter
 		CGFloat imgY = [letter yOffsetFromDictionary:self.letterList];
@@ -123,14 +125,19 @@
 		//- update x-coord for next letter
 		imgX += [img size].width;
 		
+		//- TODO: figure out how to realease without memory leak
+		//[letter release];
+		
 	}
+	
 	UIImage* panelImg = UIGraphicsGetImageFromCurrentImageContext();
+	
 	UIGraphicsEndImageContext();
 	
+	//- embed word image into panel into app frame
 	UIImageView* iv = [[UIImageView alloc] initWithImage:panelImg];
 	[self.view addSubview:iv];
 	iv.center = self.view.center;
-	NSLog(@"iv.center coords: %f, %f", iv.center.x, iv.center.y);
 	[iv release];
 	
 }
@@ -246,7 +253,7 @@
 
 	// test crude tiling
 	NSLog(@"spell: %d", [self.objSpell count]);
-	NSDictionary* aSpell = [self.objSpell objectAtIndex:3];
+	NSDictionary* aSpell = [self.objSpell objectAtIndex:2];
 	NSMutableArray* word = [aSpell objectForKey:@"spell"];
 	NSMutableArray* sword = [self recurseForWord:word];
 

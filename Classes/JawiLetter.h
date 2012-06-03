@@ -16,7 +16,8 @@
 }
 
 
-@property (nonatomic,retain) NSString* name;
+//@property (nonatomic,retain) NSString* name;
+@property (nonatomic,copy) NSString* name;
 @property (nonatomic) NSInteger pos;
 
 

@@ -33,12 +33,12 @@
 		
 		//- ASCII code for 0, 1, 2 and 3 is 48, 49, 50, 51
 		if ( c > 47 && c < 52 ) {
-			//NSLog(@"in initWithString-if");
 			self.name = [letter substringWithRange:NSMakeRange(0, length-1)];
+			//self.name = [[NSString alloc] initWithString:@"ba"];
+			//self.name = letter;
 			self.pos = c - 48;
 		}
 		else {
-			//NSLog(@"in initWithString-else");
 			self.name = letter;
 			self.pos = 0;
 		}
