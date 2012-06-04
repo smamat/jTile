@@ -5,3 +5,8 @@ To checkout new branch from remote (that doesn't exist locally):
 To update local branch to remote branch
 1. git push [alias to remote] [local branch]
 	e.g. git push origin localbranch
+
+To update local branch with remote branch, when local branch is several commits behind (fast-forwarding)
+1. git fetch [alias to remote]
+2. git merge [alias to remote]/[local branch]
+	e.g. (while in "master" branch): git fetch origin; git merge origin/master
