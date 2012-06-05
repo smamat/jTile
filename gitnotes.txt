@@ -7,6 +7,12 @@ To update local branch with remote branch
 2. git merge alias/branch
 	e.g. git fetch origin; git merge origin/testbranch
 
+To update local branch with remote branch, when local branch is several commits behind (fast-forwarding)
+1. git fetch [alias to remote]
+2. git merge [alias to remote]/[local branch]
+	e.g. (while in "master" branch): git fetch origin; git merge origin/master
+
 To update remote branch with local branch
 1. git push [alias to remote] [local branch]
-	e.g. git push origin testbranch
+	e.g. git push origin localbranch
+
