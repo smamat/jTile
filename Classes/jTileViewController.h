@@ -37,6 +37,5 @@
 //- draw lines for aligning panels vertically using PanelGrid class
 - (void) drawPanelAlignment;
 
-
 @end
 

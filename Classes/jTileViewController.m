@@ -113,7 +113,6 @@
 		//- a JawiLetter object to represent letter
 		//- TODO: need to release letter eventhough not assigning it to self.var?
 		JawiLetter* letter = [[JawiLetter alloc] initWithString:[word objectAtIndex:i]];
-		//JawiLetter* letter = [[JawiLetter alloc] init];
 
 		//- compute vertical offset of letter
 		CGFloat imgY = [letter yOffsetFromDictionary:self.letterList];
@@ -124,6 +123,16 @@
 		
 		//- update x-coord for next letter
 		imgX += [img size].width;
+		
+		//- add dash/space between letters
+		if ([letter needsDashFromDictionary:self.letterList]) {
+			//- add dash
+			UIImage* dimg = [UIImage imageNamed:@"dash0.png"];
+			[dimg drawAtPoint:CGPointMake(imgX, imgY)];
+		} else {
+			NSLog(@"add space?");
+			//- TODO: add space?
+		}
 		
 		//- TODO: figure out how to realease without memory leak
 		//[letter release];
