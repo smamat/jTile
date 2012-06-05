@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1363ED69157CA4D100C0639B /* qaf0.png in Resources */ = {isa = PBXBuildFile; fileRef = 1363ED68157CA4D100C0639B /* qaf0.png */; };
 		139B5E1F1574F9D50017C267 /* JawiLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 139B5E1E1574F9D50017C267 /* JawiLetter.m */; };
 		13ED44C9156392A8009C51CC /* TypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13ED44C8156392A8009C51CC /* TypeList.plist */; };
 		1D3623260D0F684500981E51 /* jTileAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* jTileAppDelegate.m */; };
@@ -33,12 +34,12 @@
 		43EDCFEA15689F3A002AD3E7 /* ra1.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EDCFE915689F3A002AD3E7 /* ra1.png */; };
 		43EDCFEC15689F3E002AD3E7 /* nga0.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EDCFEB15689F3E002AD3E7 /* nga0.png */; };
 		43EDCFFA1568A277002AD3E7 /* ta1.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EDCFF91568A277002AD3E7 /* ta1.png */; };
-		43EDCFFE1568A282002AD3E7 /* qaf0.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EDCFFD1568A282002AD3E7 /* qaf0.png */; };
 		43EDD00B1568A2CC002AD3E7 /* nun2.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EDD00A1568A2CC002AD3E7 /* nun2.png */; };
 		43EDD0161568B1C3002AD3E7 /* ba1.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EDD0151568B1C3002AD3E7 /* ba1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1363ED68157CA4D100C0639B /* qaf0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qaf0.png; sourceTree = "<group>"; };
 		139B5E1D1574F9D50017C267 /* JawiLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JawiLetter.h; sourceTree = "<group>"; };
 		139B5E1E1574F9D50017C267 /* JawiLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JawiLetter.m; sourceTree = "<group>"; };
 		13ED44C8156392A8009C51CC /* TypeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TypeList.plist; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		43EDCFE915689F3A002AD3E7 /* ra1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ra1.png; sourceTree = "<group>"; };
 		43EDCFEB15689F3E002AD3E7 /* nga0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nga0.png; sourceTree = "<group>"; };
 		43EDCFF91568A277002AD3E7 /* ta1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ta1.png; sourceTree = "<group>"; };
-		43EDCFFD1568A282002AD3E7 /* qaf0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qaf0.png; sourceTree = "<group>"; };
 		43EDD00A1568A2CC002AD3E7 /* nun2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nun2.png; sourceTree = "<group>"; };
 		43EDD0151568B1C3002AD3E7 /* ba1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ba1.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* jTile-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "jTile-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -164,6 +164,7 @@
 		43CBCEF1155CC2CF007DC602 /* Letters */ = {
 			isa = PBXGroup;
 			children = (
+				1363ED68157CA4D100C0639B /* qaf0.png */,
 				431DC3CF1577CD1F00494407 /* ba0.png */,
 				43905CE915711B5E00620E6A /* dash0.png */,
 				43905CEB15711B6300620E6A /* dash1.png */,
@@ -172,7 +173,6 @@
 				43EDCFF91568A277002AD3E7 /* ta1.png */,
 				43EDD00A1568A2CC002AD3E7 /* nun2.png */,
 				43905CDA1571188F00620E6A /* nun1.png */,
-				43EDCFFD1568A282002AD3E7 /* qaf0.png */,
 				43EDCFEB15689F3E002AD3E7 /* nga0.png */,
 				43EDCFE915689F3A002AD3E7 /* ra1.png */,
 				43EDCFE715689F35002AD3E7 /* wau1.png */,
@@ -245,7 +245,6 @@
 				43EDCFEA15689F3A002AD3E7 /* ra1.png in Resources */,
 				43EDCFEC15689F3E002AD3E7 /* nga0.png in Resources */,
 				43EDCFFA1568A277002AD3E7 /* ta1.png in Resources */,
-				43EDCFFE1568A282002AD3E7 /* qaf0.png in Resources */,
 				43EDD00B1568A2CC002AD3E7 /* nun2.png in Resources */,
 				43EDD0161568B1C3002AD3E7 /* ba1.png in Resources */,
 				43CE18C3156BBC820056E7C3 /* bagrid.png in Resources */,
@@ -254,6 +253,7 @@
 				43905CEA15711B5E00620E6A /* dash0.png in Resources */,
 				43905CEC15711B6300620E6A /* dash1.png in Resources */,
 				431DC3D01577CD1F00494407 /* ba0.png in Resources */,
+				1363ED69157CA4D100C0639B /* qaf0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
