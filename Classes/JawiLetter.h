@@ -26,5 +26,7 @@
 - (NSString*)imageFilename;
 - (CGFloat) yOffsetFromDictionary:(NSDictionary*)dict;
 
+//- determines if dash is needed after letter (for ligature)
+- (bool)needsDashFromDictionary:(NSDictionary*)dict;
 
 @end

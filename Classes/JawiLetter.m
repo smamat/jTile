@@ -61,6 +61,22 @@
 	//CGFloat	dy = [[[letterInfo objectForKey:Y_KEY] objectAtIndex:lpos] floatValue];
 }
 
+//- letter needs dash if type==2 and (pos==1 or pos==2)
+- (bool) needsDashFromDictionary:(NSDictionary*) dict {
+	NSDictionary* letterInfo = [dict objectForKey:self.name];
+	
+	if ([[letterInfo objectForKey:T_KEY] integerValue]==2 && (self.pos==1 || self.pos==2)) {
+		NSLog(@"%@ at %d needs dash", self.name, self.pos);
+		return YES;
+	} else {
+		NSLog(@"%@ at %d needs no dash", self.name, self.pos);
+	}
+
+	
+	return NO;
+}
+
+
 - (void)dealloc {
 	NSLog(@"before dealloc");
 	[name dealloc];
