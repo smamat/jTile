@@ -2,6 +2,11 @@ To checkout new branch from remote (that doesn't exist locally):
 1. git remote update
 2. git checkout -b LetterList origin/LetterList
 
-To update local branch to remote branch
+To update local branch with remote branch
+1. git fetch alias
+2. git merge alias/branch
+	e.g. git fetch origin; git merge origin/testbranch
+
+To update remote branch with local branch
 1. git push [alias to remote] [local branch]
-	e.g. git push origin localbranch
+	e.g. git push origin testbranch
