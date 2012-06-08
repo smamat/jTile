@@ -60,5 +60,42 @@
 			<string>mim</string>
 		</array>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>bersila</string>
+		<key>spell</key>
+		<array>
+			<string>ba</string>
+			<string>ra</string>
+			<string>sin</string>
+			<string>ya</string>
+			<string>lam</string>
+			<string>alif</string>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>labu</string>
+		<key>spell</key>
+		<array>
+			<string>lam</string>
+			<string>alif</string>
+			<string>ba</string>
+			<string>wau</string>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>lalabu</string>
+		<key>spell</key>
+		<array>
+			<string>lam</string>
+			<string>alif</string>
+			<string>lam</string>
+			<string>alif</string>
+			<string>ba</string>
+			<string>wau</string>
+		</array>
+	</dict>
 </array>
 </plist>
