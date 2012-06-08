@@ -24,7 +24,8 @@
 - (id)init;
 - (id)initWithString:(NSString*)letter;
 - (NSString*)imageFilename;
-- (CGFloat) yOffsetFromDictionary:(NSDictionary*)dict;
+- (CGFloat)yOffsetFromDictionary:(NSDictionary*)dict;
+- (NSInteger)letterTypeFromDictionary:(NSDictionary*)dict;
 
 //- determines if dash is needed after letter (for ligature)
 - (bool)needsDashFromDictionary:(NSDictionary*)dict;

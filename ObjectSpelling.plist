@@ -49,5 +49,16 @@
 			<string>qaf</string>
 		</array>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>salam</string>
+		<key>spell</key>
+		<array>
+			<string>sin</string>
+			<string>lam</string>
+			<string>alif</string>
+			<string>mim</string>
+		</array>
+	</dict>
 </array>
 </plist>

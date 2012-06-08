@@ -121,18 +121,20 @@
 		UIImage* img = [UIImage imageNamed:[letter imageFilename]];
 		[img drawAtPoint:CGPointMake(imgX, imgY)];
 		
-		//- update x-coord for next letter
-		imgX += [img size].width;
-		
+		/*
 		//- add dash/space between letters
 		if ([letter needsDashFromDictionary:self.letterList]) {
 			//- add dash
 			UIImage* dimg = [UIImage imageNamed:@"dash0.png"];
-			[dimg drawAtPoint:CGPointMake(imgX, imgY)];
+			[dimg drawAtPoint:CGPointMake(imgX-7, 49)];
 		} else {
 			NSLog(@"add space?");
 			//- TODO: add space?
 		}
+		*/
+		
+		//- update x-coord for next letter
+		imgX += [img size].width;
 		
 		//- TODO: figure out how to realease without memory leak
 		//[letter release];
@@ -145,6 +147,8 @@
 	
 	//- embed word image into panel into app frame
 	UIImageView* iv = [[UIImageView alloc] initWithImage:panelImg];
+	CGFloat il = iv.frame.size.width;
+	NSLog(@"size of panelImg is %1.2f", il);
 	[self.view addSubview:iv];
 	iv.center = self.view.center;
 	[iv release];
@@ -183,6 +187,8 @@
 	}
 
 	//- RECURSIVE CASE: front/middle letter
+	
+	// TODO: check if lam-alif (never happen in base case)
 	
 	//- get current letter's type
 	NSDictionary* letterInfo = [self.letterList objectForKey:currLetter];
@@ -262,7 +268,7 @@
 
 	// test crude tiling
 	NSLog(@"spell: %d", [self.objSpell count]);
-	NSDictionary* aSpell = [self.objSpell objectAtIndex:2];
+	NSDictionary* aSpell = [self.objSpell objectAtIndex:4];
 	NSMutableArray* word = [aSpell objectForKey:@"spell"];
 	NSMutableArray* sword = [self recurseForWord:word];
 

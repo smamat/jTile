@@ -10,7 +10,7 @@
 		<array>
 			<integer>0</integer>
 			<real>-22.5</real>
-			<integer>0</integer>
+			<integer>2</integer>
 			<integer>0</integer>
 		</array>
 	</dict>
@@ -56,7 +56,7 @@
 		<integer>2</integer>
 		<key>yalign</key>
 		<array>
-			<integer>0</integer>
+			<integer>37</integer>
 			<integer>0</integer>
 			<integer>0</integer>
 			<integer>13</integer>
@@ -119,6 +119,30 @@
 			<integer>0</integer>
 			<integer>0</integer>
 			<integer>0</integer>
+			<integer>0</integer>
+		</array>
+	</dict>
+	<key>sin</key>
+	<dict>
+		<key>type</key>
+		<integer>2</integer>
+		<key>yalign</key>
+		<array>
+			<integer>0</integer>
+			<real>37.5</real>
+			<integer>0</integer>
+			<integer>0</integer>
+		</array>
+	</dict>
+	<key>lam</key>
+	<dict>
+		<key>type</key>
+		<integer>2</integer>
+		<key>yalign</key>
+		<array>
+			<integer>0</integer>
+			<integer>0</integer>
+			<integer>7</integer>
 			<integer>0</integer>
 		</array>
 	</dict>

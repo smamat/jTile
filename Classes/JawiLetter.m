@@ -76,6 +76,12 @@
 	return NO;
 }
 
+//- get letter type: 1 or 2
+- (NSInteger) letterTypeFromDictionary: (NSDictionary*)dict {
+	
+	NSDictionary* letterInfo = [dict objectForKey:self.name];
+	return [[letterInfo objectForKey:T_KEY] integerValue];
+}
 
 - (void)dealloc {
 	NSLog(@"before dealloc");

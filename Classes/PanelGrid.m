@@ -22,7 +22,7 @@
 		self.opaque = NO;
 		self.alpha = 0.5;
 		self.gridScale = 1;
-		self.backgroundColor = [UIColor greenColor];
+		//self.backgroundColor = [UIColor greenColor];
     }
     return self;
 }
