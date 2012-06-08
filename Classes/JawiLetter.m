@@ -34,8 +34,6 @@
 		//- ASCII code for 0, 1, 2 and 3 is 48, 49, 50, 51
 		if ( c > 47 && c < 52 ) {
 			self.name = [letter substringWithRange:NSMakeRange(0, length-1)];
-			//self.name = [[NSString alloc] initWithString:@"ba"];
-			//self.name = letter;
 			self.pos = c - 48;
 		}
 		else {
@@ -51,6 +49,14 @@
 - (NSString*) imageFilename {
 	//NSLog(@"image file name is: %@%d.png", self.name, self.pos);
 	return [NSString stringWithFormat:@"%@%d.png", self.name , self.pos];
+}
+
+- (NSString*) namepos {
+	return [NSString stringWithFormat:@"%@%d", self.name, self.pos];
+}
+
+- (bool) isName:(NSString *)cmpname {
+	return [self.name isEqualToString:cmpname];
 }
 
 - (CGFloat) yOffsetFromDictionary:(NSDictionary*)dict {
