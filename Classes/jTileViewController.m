@@ -161,6 +161,9 @@
  * recurseForWord :word should be called for each word,
  * which will call recurseForWord :word :prevType where the algorithm
  * is executed.
+ * Lam-alif checks are done in algorithm to mimick the way
+ * the human mind works (mine at least).
+ * If the checks are done before hand, it's pre-emptive and unnatural.
  */
 
 - (NSMutableArray*) recurseForWord:(NSMutableArray*)word {
@@ -169,44 +172,59 @@
 
 - (NSMutableArray*) recurseForWord :(NSMutableArray*)word withPrevType:(NSInteger)prevType {
 	
-	NSInteger pos;
-	NSString* currLetter = [word objectAtIndex:0]; //- copy of word's first element
+	//- BASE CASE: empty letter (due to lam-alif at end of word)
+	//- TODO: no memory leak in this case?
+	if ([word count] == 0)
+		return nil;
+	
+	//- current letter to be processed
+	JawiLetter* letter = [[JawiLetter alloc] initWithString:[word objectAtIndex:0]];
 	
 	//- BASE CASE: last letter
-	
 	if ([word count] == 1) {
 		
 		//- add pos to current letter
-		if (prevType == TYPE_A)	pos = 0;
-		else pos = 3;
-		NSString* modfLetter = [currLetter stringByAppendingFormat:@"%d", pos];
+		if (prevType == TYPE_A)
+			letter.pos = 0;
+		else
+			letter.pos = 3;
 		
 		//- return new word with modified letter
-		NSMutableArray* newWord = [[NSMutableArray alloc] initWithObjects:modfLetter, nil];
+		NSMutableArray* newWord = [[NSMutableArray alloc] initWithObjects:[letter namepos], nil];
 		return [newWord autorelease];
 	}
 
 	//- RECURSIVE CASE: front/middle letter
 	
-	// TODO: check if lam-alif (never happen in base case)
-	
+	//- check if lam-alif and remove alif
+	if ([letter isName:@"lam"] && ([[word objectAtIndex:1] isEqualToString:@"alif"])) {
+		letter.name = @"la";
+		[word removeObjectAtIndex:1];
+	}
+
 	//- get current letter's type
-	NSDictionary* letterInfo = [self.letterList objectForKey:currLetter];
-	NSInteger lType = [[letterInfo objectForKey:T_KEY] integerValue];
+	NSInteger lType = [letter letterTypeFromDictionary:self.letterList];
 	
 	//- add pos to current letter
-	if (prevType == TYPE_A) pos = 1;
-	else pos = 2;
-	NSString* modfLetter = [currLetter stringByAppendingFormat:@"%d", pos];
-	
-	//- recurse remaining letters
-	NSMutableArray* subWord = (NSMutableArray*)[word subarrayWithRange:NSMakeRange(1,[word count]-1)];
-	NSMutableArray* modfSubWord = [self recurseForWord:subWord withPrevType:lType];
+	if (prevType == TYPE_A)
+		letter.pos = 1;
+	else 
+		letter.pos = 2;
+
+	//- recurse on tail (remaining letters)
+	[word removeObjectAtIndex:0];
+	NSMutableArray* modfTail = [self recurseForWord:word withPrevType:lType];
 	
 	//- return modified currLetter + recurseForWord(subWord,lType)
-	NSMutableArray* newWord = [[[NSMutableArray alloc] initWithObjects:modfLetter, nil] autorelease];
+	//NSMutableArray* newWord = [[[NSMutableArray alloc] initWithObjects:[letter namepos], nil] autorelease];
+	NSMutableArray* newWord = [[NSMutableArray alloc] initWithObjects:[letter namepos], nil];
 	
-	return (NSMutableArray*)[newWord arrayByAddingObjectsFromArray:modfSubWord];
+	//- TODO: dealloc letter
+	//[letter release];
+	
+	//return (NSMutableArray*)[newWord arrayByAddingObjectsFromArray:modfTail];
+	[newWord addObjectsFromArray:modfTail];
+	return [newWord autorelease];
 	
 }
 
@@ -250,8 +268,6 @@
 	//[self.view addSubview:bgv ];
 	bgv.center = self.view.center;
 	[bgv release];
-	
-
 	
 	// load dictionary
 	NSString* path = [[NSBundle mainBundle] pathForResource:@"LetterList" ofType:@"plist"];
