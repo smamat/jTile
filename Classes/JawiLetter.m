@@ -90,9 +90,9 @@
 }
 
 - (void)dealloc {
-	NSLog(@"before dealloc");
-	[name dealloc];
-	NSLog(@"after dealloc");
+	//NSLog(@"before dealloc");
+	//[name dealloc];
+	//NSLog(@"after dealloc");
     [super dealloc];
 }
 
