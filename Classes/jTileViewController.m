@@ -30,7 +30,7 @@
 }
 
 /* calculate width of row by pixels */
-- (CGFloat) widthOfPanelWithWord :(NSMutableArray*)word {
+- (CGFloat) widthOfPanelWithWord :(NSArray*)word {
 	
 	NSUInteger wordLength = [word count];
 	
@@ -97,7 +97,7 @@
 	}
 }
 
-- (void) putLettersOfWord:(NSMutableArray *)word {
+- (void) putLettersOfWord:(NSArray *)word {
 	
 	CGFloat panelWidth = [self widthOfPanelWithWord:word];
 	NSLog(@"width of word panel is: %f", panelWidth);
@@ -111,35 +111,25 @@
 	for (NSInteger i = [word count]-1; i>=0; --i) {
 		
 		//- a JawiLetter object to represent letter
-		//- TODO: need to release letter eventhough not assigning it to self.var?
 		JawiLetter* letter = [[JawiLetter alloc] initWithString:[word objectAtIndex:i]];
 
 		//- compute vertical offset of letter
-		//CGFloat imgY = [letter yOffsetFromDictionary:self.letterList];
 		CGFloat imgY = [self yOffsetOfLetter:letter]+25;
 		
 		//- draw image onto context
 		UIImage* img = [UIImage imageNamed:[letter imageFilename]];
 		[img drawAtPoint:CGPointMake(imgX, imgY)];
 		
-		
-		/*
 		//- add dash/space between letters
-		if ([letter needsDashFromDictionary:self.letterList]) {
-			//- add dash
+		if ([self needsDashForLetter:letter]) {
 			UIImage* dimg = [UIImage imageNamed:@"dash0.png"];
-			[dimg drawAtPoint:CGPointMake(imgX-7, 49)];
-		} else {
-			NSLog(@"add space?");
-			//- TODO: add space?
+			[dimg drawAtPoint:CGPointMake(imgX-4, 68)];
 		}
-		*/
 		
 		//- update x-coord for next letter
 		imgX += [img size].width;
-		
+
 		[letter release];
-		
 	}
 	
 	UIImage* panelImg = UIGraphicsGetImageFromCurrentImageContext();
@@ -150,11 +140,11 @@
 	UIImageView* iv = [[UIImageView alloc] initWithImage:panelImg];
 	[self.view addSubview:iv];
 	iv.center = self.view.center;
-	//CGFloat iw = iv.frame.size.width;
-	//CGFloat ih = iv.frame.size.height;
-	//CGFloat x = iv.frame.origin.x;
-	//CGFloat y = iv.frame.origin.y;
-	//iv.frame = CGRectMake(x, y, iw/2, ih/2);
+	/*CGFloat iw = iv.frame.size.width;
+	CGFloat ih = iv.frame.size.height;
+	CGFloat x = iv.frame.origin.x;
+	CGFloat y = iv.frame.origin.y;
+	iv.frame = CGRectMake(x, y, iw/2, ih/2);*/
 	[iv release];
 	
 }
@@ -170,23 +160,23 @@
  * If the checks are done before hand, it's pre-emptive and unnatural.
  */
 
-- (NSMutableArray*) recurseForWord:(NSMutableArray*)word {
+- (NSArray*) linkLettersOf:(NSArray*)word {
 	return [self recurseForWord:word withPrevType:1];
 }
 
-- (NSMutableArray*) recurseForWord :(NSMutableArray*)word withPrevType:(NSInteger)prevType {
+- (NSArray*) recurseForWord :(NSArray*)word withPrevType:(NSInteger)prevType {
+	
+	NSInteger nLetter = [word count];
 	
 	//- BASE CASE: empty letter (due to lam-alif at end of word)
-	//- TODO: no memory leak in this case?
-	if ([word count] == 0)
+	if (nLetter == 0)
 		return nil;
 	
 	//- current letter to be processed
 	JawiLetter* letter = [[JawiLetter alloc] initWithString:[word objectAtIndex:0]];
 	
 	//- BASE CASE: last letter
-	if ([word count] == 1) {
-		
+	if (nLetter == 1) {
 		//- add pos to current letter
 		if (prevType == TYPE_A)
 			letter.pos = 0;
@@ -195,20 +185,14 @@
 		
 		//- return new word with modified letter
 		NSMutableArray* newWord = [[NSMutableArray alloc] initWithObjects:[letter namepos], nil];
+		[letter release];
 		return [newWord autorelease];
 	}
 
 	//- RECURSIVE CASE: front/middle letter
 	
-	//- check if lam-alif and remove alif
-	if ([letter isName:@"lam"] && ([[word objectAtIndex:1] isEqualToString:@"alif"])) {
-		letter.name = @"la";
-		[word removeObjectAtIndex:1];
-	}
-
-	//- get current letter's type
-	//NSInteger lType = [letter letterTypeFromDictionary:self.letterList];
-	//NSInteger lType = [self typeOfLetter:letter];
+	//- range for word tail (i.e. exclude current letter)
+	NSRange subRange = NSMakeRange(1, nLetter-1);
 	
 	//- add pos to current letter
 	if (prevType == TYPE_A)
@@ -216,19 +200,20 @@
 	else 
 		letter.pos = 2;
 
+	//- check if lam-alif, combine to "la" and remove trailing alif
+	if ([letter isName:@"lam"] && ([[word objectAtIndex:1] isEqualToString:@"alif"])) {
+		letter.name = @"la";
+		subRange = NSMakeRange(2, nLetter-2);
+	}
+	
 	//- recurse on tail (remaining letters)
-	[word removeObjectAtIndex:0];
-	NSMutableArray* modfTail = [self recurseForWord:word withPrevType:[self typeOfLetter:letter]];
+	NSArray* subWord = [word subarrayWithRange:subRange];
+	NSArray* modfTail = [self recurseForWord:subWord withPrevType:[self typeOfLetter:letter]];
 	
 	//- return modified currLetter + recurseForWord(subWord,lType)
-	//NSMutableArray* newWord = [[[NSMutableArray alloc] initWithObjects:[letter namepos], nil] autorelease];
-	NSMutableArray* newWord = [[NSMutableArray alloc] initWithObjects:[letter namepos], nil];
-	
+	NSArray* newWord = [[[NSArray alloc] initWithObjects:[letter namepos], nil] autorelease];
 	[letter release];
-	
-	//return (NSMutableArray*)[newWord arrayByAddingObjectsFromArray:modfTail];
-	[newWord addObjectsFromArray:modfTail];
-	return [newWord autorelease];
+	return [newWord arrayByAddingObjectsFromArray:modfTail];
 	
 }
 
@@ -240,6 +225,19 @@
 - (CGFloat) yOffsetOfLetter : (JawiLetter *)letter {
 	NSDictionary* letterInfo = [self.letterList objectForKey:letter.name];
 	return [[[letterInfo objectForKey:Y_KEY] objectAtIndex:letter.pos] floatValue];
+}
+
+//- letter needs dash if type==2 and (pos==1 or pos==2)
+- (bool) needsDashForLetter:(JawiLetter*)letter {
+	NSDictionary* letterInfo = [self.letterList objectForKey:letter.name];
+		
+	if ([[letterInfo objectForKey:T_KEY] integerValue]==2 && (letter.pos==1 || letter.pos==2)) {
+		//NSLog(@"%@ at %d needs dash", self.name, self.pos);
+		return YES;
+	}
+	
+	return NO;
+	
 }
 
 - (CGFloat) marginForPanelWidth : (CGFloat)panelWidth {
@@ -296,18 +294,12 @@
 	
 
 	// test crude tiling
-	NSLog(@"spell: %d", [self.objSpell count]);
-	NSDictionary* aSpell = [self.objSpell objectAtIndex:3];
+	//NSLog(@"spell: %d", [self.objSpell count]);
+	NSDictionary* aSpell = [self.objSpell objectAtIndex:6];
 	NSMutableArray* word = [aSpell objectForKey:@"spell"];
-	NSMutableArray* sword = [self recurseForWord:word];
+	NSArray* lword = [self linkLettersOf:word];
 
-	CGFloat panelWidth = [self widthOfPanelWithWord:sword];
-	CGFloat marginLength = [self marginForPanelWidth:panelWidth];
-	NSLog(@"panel width = %f, margin length = %f", panelWidth, marginLength);
-	
-
-	//[self putPanelOfWord:sword withMarginLength:marginLength];
-	[self putLettersOfWord:sword];
+	[self putLettersOfWord:lword];
 	
 	[self drawPanelAlignment];
 	
