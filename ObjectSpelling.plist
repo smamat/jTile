@@ -37,27 +37,24 @@
 	</dict>
 	<dict>
 		<key>name</key>
-		<string>bununununuk</string>
+		<string>jerung</string>
 		<key>spell</key>
 		<array>
-			<string>ba</string>
+			<string>jim</string>
+			<string>ra</string>
 			<string>wau</string>
-			<string>nun</string>
-			<string>wau</string>
-			<string>nun</string>
-			<string>wau</string>
-			<string>qaf</string>
+			<string>nga</string>
 		</array>
 	</dict>
 	<dict>
 		<key>name</key>
-		<string>salam</string>
+		<string>labu</string>
 		<key>spell</key>
 		<array>
-			<string>sin</string>
 			<string>lam</string>
 			<string>alif</string>
-			<string>mim</string>
+			<string>ba</string>
+			<string>wau</string>
 		</array>
 	</dict>
 	<dict>
@@ -75,26 +72,13 @@
 	</dict>
 	<dict>
 		<key>name</key>
-		<string>labu</string>
+		<string>salam</string>
 		<key>spell</key>
 		<array>
+			<string>sin</string>
 			<string>lam</string>
 			<string>alif</string>
-			<string>ba</string>
-			<string>wau</string>
-		</array>
-	</dict>
-	<dict>
-		<key>name</key>
-		<string>lalabu</string>
-		<key>spell</key>
-		<array>
-			<string>lam</string>
-			<string>alif</string>
-			<string>lam</string>
-			<string>alif</string>
-			<string>ba</string>
-			<string>wau</string>
+			<string>mim</string>
 		</array>
 	</dict>
 </array>
