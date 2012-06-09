@@ -51,8 +51,9 @@
 	
 	CGContextSetLineWidth(con, 0.25);
 	
-	CGFloat red[4] = {1.0f, 0.0f, 0.0f, 1.0f};
-    CGContextSetStrokeColor(con, red);
+	//CGFloat red[4] = {1.0f, 0.0f, 0.0f, 1.0f};
+	CGFloat	grey[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+    CGContextSetStrokeColor(con, grey);
 	CGContextStrokePath(con);
 }
 
