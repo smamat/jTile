@@ -106,7 +106,7 @@
 	CGFloat imgX = 0;
 	
 	//- todo: height == 100?
-	UIGraphicsBeginImageContext(CGSizeMake(panelWidth, 100));
+	UIGraphicsBeginImageContext(CGSizeMake(panelWidth, 150));
 	
 	for (NSInteger i = [word count]-1; i>=0; --i) {
 		
@@ -115,11 +115,13 @@
 		JawiLetter* letter = [[JawiLetter alloc] initWithString:[word objectAtIndex:i]];
 
 		//- compute vertical offset of letter
-		CGFloat imgY = [letter yOffsetFromDictionary:self.letterList];
+		//CGFloat imgY = [letter yOffsetFromDictionary:self.letterList];
+		CGFloat imgY = [self yOffsetOfLetter:letter]+25;
 		
 		//- draw image onto context
 		UIImage* img = [UIImage imageNamed:[letter imageFilename]];
 		[img drawAtPoint:CGPointMake(imgX, imgY)];
+		
 		
 		/*
 		//- add dash/space between letters
@@ -136,8 +138,7 @@
 		//- update x-coord for next letter
 		imgX += [img size].width;
 		
-		//- TODO: figure out how to realease without memory leak
-		//[letter release];
+		[letter release];
 		
 	}
 	
@@ -147,10 +148,13 @@
 	
 	//- embed word image into panel into app frame
 	UIImageView* iv = [[UIImageView alloc] initWithImage:panelImg];
-	CGFloat il = iv.frame.size.width;
-	NSLog(@"size of panelImg is %1.2f", il);
 	[self.view addSubview:iv];
 	iv.center = self.view.center;
+	//CGFloat iw = iv.frame.size.width;
+	//CGFloat ih = iv.frame.size.height;
+	//CGFloat x = iv.frame.origin.x;
+	//CGFloat y = iv.frame.origin.y;
+	//iv.frame = CGRectMake(x, y, iw/2, ih/2);
 	[iv release];
 	
 }
@@ -203,7 +207,8 @@
 	}
 
 	//- get current letter's type
-	NSInteger lType = [letter letterTypeFromDictionary:self.letterList];
+	//NSInteger lType = [letter letterTypeFromDictionary:self.letterList];
+	//NSInteger lType = [self typeOfLetter:letter];
 	
 	//- add pos to current letter
 	if (prevType == TYPE_A)
@@ -213,14 +218,13 @@
 
 	//- recurse on tail (remaining letters)
 	[word removeObjectAtIndex:0];
-	NSMutableArray* modfTail = [self recurseForWord:word withPrevType:lType];
+	NSMutableArray* modfTail = [self recurseForWord:word withPrevType:[self typeOfLetter:letter]];
 	
 	//- return modified currLetter + recurseForWord(subWord,lType)
 	//NSMutableArray* newWord = [[[NSMutableArray alloc] initWithObjects:[letter namepos], nil] autorelease];
 	NSMutableArray* newWord = [[NSMutableArray alloc] initWithObjects:[letter namepos], nil];
 	
-	//- TODO: dealloc letter
-	//[letter release];
+	[letter release];
 	
 	//return (NSMutableArray*)[newWord arrayByAddingObjectsFromArray:modfTail];
 	[newWord addObjectsFromArray:modfTail];
@@ -228,6 +232,15 @@
 	
 }
 
+- (NSInteger) typeOfLetter : (JawiLetter*)letter {
+	NSDictionary* letterInfo = [self.letterList objectForKey:letter.name];
+	return [[letterInfo objectForKey:T_KEY] integerValue];
+}
+
+- (CGFloat) yOffsetOfLetter : (JawiLetter *)letter {
+	NSDictionary* letterInfo = [self.letterList objectForKey:letter.name];
+	return [[[letterInfo objectForKey:Y_KEY] objectAtIndex:letter.pos] floatValue];
+}
 
 - (CGFloat) marginForPanelWidth : (CGFloat)panelWidth {
 	//- simple at the moment, might need different calculation
@@ -284,7 +297,7 @@
 
 	// test crude tiling
 	NSLog(@"spell: %d", [self.objSpell count]);
-	NSDictionary* aSpell = [self.objSpell objectAtIndex:4];
+	NSDictionary* aSpell = [self.objSpell objectAtIndex:3];
 	NSMutableArray* word = [aSpell objectForKey:@"spell"];
 	NSMutableArray* sword = [self recurseForWord:word];
 

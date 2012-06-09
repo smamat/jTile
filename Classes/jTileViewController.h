@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JawiLetter.h"
 
 @interface jTileViewController : UIViewController {
 
@@ -36,6 +37,12 @@
 
 //- draw lines for aligning panels vertically using PanelGrid class
 - (void) drawPanelAlignment;
+
+//- letter info and condition
+- (CGFloat) yOffsetOfLetter:(JawiLetter*)letter;
+- (NSInteger) typeOfLetter:(JawiLetter*)letter;
+//- (bool) needsDashForLetter:(JawiLetter*)letter;
+
 
 @end
 
