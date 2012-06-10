@@ -118,6 +118,14 @@
 		
 		//- draw image onto context
 		UIImage* img = [UIImage imageNamed:[letter imageFilename]];
+		
+		//- TODO: if letter is alif, add space
+		//- TODO: if letter is ra-type, substract space
+		//- TODO: if letter is jim-type and pos 3, substract space
+		//- TODO: if letter is lam?
+		//if ([letter isName:@"alif"])
+		//	imgX += 7;
+		
 		[img drawAtPoint:CGPointMake(imgX, imgY)];
 		
 		//- add dash/space between letters
@@ -295,7 +303,7 @@
 
 	// test crude tiling
 	//NSLog(@"spell: %d", [self.objSpell count]);
-	NSDictionary* aSpell = [self.objSpell objectAtIndex:6];
+	NSDictionary* aSpell = [self.objSpell objectAtIndex:12];
 	NSMutableArray* word = [aSpell objectForKey:@"spell"];
 	NSArray* lword = [self linkLettersOf:word];
 
