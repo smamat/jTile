@@ -187,5 +187,36 @@
 			<string>mim</string>
 		</array>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>wang</string>
+		<key>spell</key>
+		<array>
+			<string>wau</string>
+			<string>alif</string>
+			<string>nun</string>
+			<string>nga</string>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>wajah</string>
+		<key>spell</key>
+		<array>
+			<string>wau</string>
+			<string>jim</string>
+			<string>ho</string>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>wahyu</string>
+		<key>spell</key>
+		<array>
+			<string>wau</string>
+			<string>ha</string>
+			<string>ya</string>
+		</array>
+	</dict>
 </array>
 </plist>

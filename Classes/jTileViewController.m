@@ -214,6 +214,9 @@
 		subRange = NSMakeRange(2, nLetter-2);
 	}
 	
+	//- TODO: check if ba ta jim sin sad ain fa kaf lam mim nun ya nya
+	//- then do "ya"-ligature
+	
 	//- recurse on tail (remaining letters)
 	NSArray* subWord = [word subarrayWithRange:subRange];
 	NSArray* modfTail = [self recurseForWord:subWord withPrevType:[self typeOfLetter:letter]];
@@ -303,7 +306,7 @@
 
 	// test crude tiling
 	//NSLog(@"spell: %d", [self.objSpell count]);
-	NSDictionary* aSpell = [self.objSpell objectAtIndex:12];
+	NSDictionary* aSpell = [self.objSpell objectAtIndex:18];
 	NSMutableArray* word = [aSpell objectForKey:@"spell"];
 	NSArray* lword = [self linkLettersOf:word];
 

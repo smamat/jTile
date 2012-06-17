@@ -143,7 +143,7 @@
 			<integer>0</integer>
 			<real>26.2</real>
 			<integer>0</integer>
-			<integer>0</integer>
+			<integer>24</integer>
 		</array>
 	</dict>
 	<key>ya</key>
@@ -155,7 +155,7 @@
 			<integer>0</integer>
 			<integer>26</integer>
 			<real>33.8</real>
-			<integer>0</integer>
+			<integer>42</integer>
 		</array>
 	</dict>
 	<key>ta</key>
@@ -300,6 +300,18 @@
 			<integer>0</integer>
 			<integer>0</integer>
 			<integer>0</integer>
+		</array>
+	</dict>
+	<key>ha</key>
+	<dict>
+		<key>type</key>
+		<integer>2</integer>
+		<key>yalign</key>
+		<array>
+			<integer>0</integer>
+			<integer>25</integer>
+			<integer>0</integer>
+			<integer>4</integer>
 		</array>
 	</dict>
 </dict>
